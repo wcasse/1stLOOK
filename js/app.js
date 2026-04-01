@@ -1,5 +1,5 @@
 /* ============================================================
-   1stLOOK — app.js
+   F1RSTL00K — app.js
    Full data loading, chart rendering, table, modal, race chart
    ============================================================ */
 
@@ -68,7 +68,7 @@ function roleColor(role) {
 
 // ── CHART.JS DEFAULTS ─────────────────────────────────────────
 Chart.defaults.color = '#6a6d84';
-Chart.defaults.borderColor = '#1a1c28';
+Chart.defaults.borderColor = '#161822';
 Chart.defaults.font.family = "'IBM Plex Mono', monospace";
 Chart.defaults.font.size = 10;
 Chart.defaults.elements.bar.borderRadius = 0;
@@ -86,7 +86,7 @@ function baseOptions(extra = {}) {
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: '#050507',
+        backgroundColor: '#000000',
         borderColor: '#22243a',
         borderWidth: 1,
         titleColor: '#d4a832',
@@ -1568,7 +1568,7 @@ function renderDataSources() {
     callout.innerHTML = `
       <div class="intel-callout-title">CREATIVE INTELLIGENCE — WHAT MAKES THIS DIFFERENT</div>
       <div class="intel-callout-text">
-        Most industry databases track what's been announced. 1stLOOK's edge comes from creative intelligence sources — data that reveals what's happening <em>before</em> it's announced, and what the real economics look like <em>behind</em> the press releases. These sources provide structural visibility into Hollywood's financial reality that trade publications alone cannot offer.
+        Most industry databases track what's been announced. F1RSTL00K's edge comes from creative intelligence sources — data that reveals what's happening <em>before</em> it's announced, and what the real economics look like <em>behind</em> the press releases. These sources provide structural visibility into Hollywood's financial reality that trade publications alone cannot offer.
       </div>
       <div class="intel-callout-sources">
         ${CREATIVE_INTEL_SOURCES.map(s => `

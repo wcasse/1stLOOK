@@ -1,5 +1,5 @@
 /* ============================================================
-   1stLOOK — Hollywood Deals Intelligence
+   F1RSTL00K — Hollywood Deals Intelligence
    Aesthetic: Bloomberg Terminal × Brutalist Intelligence
    Zero border-radius. Zero softness. All edge.
    ============================================================ */
@@ -7,11 +7,11 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:         #050507;
-  --surface:    #0a0b10;
-  --surface2:   #0f1016;
-  --border:     #1a1c28;
-  --border2:    #22243a;
+  --bg:         #000000;
+  --surface:    #070709;
+  --surface2:   #0c0c10;
+  --border:     #161822;
+  --border2:    #1e2030;
   --gold:       #d4a832;
   --gold-dim:   #8a6e1a;
   --gold-glow:  rgba(212, 168, 50, 0.08);
@@ -214,8 +214,8 @@ body::after {
   z-index: 2;
   pointer-events: none;
 }
-.ticker-rail::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
-.ticker-rail::after { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+.ticker-rail::before { left: 0; background: linear-gradient(to right, #000, transparent); }
+.ticker-rail::after { right: 0; background: linear-gradient(to left, #000, transparent); }
 
 .ticker-inner {
   display: flex;
