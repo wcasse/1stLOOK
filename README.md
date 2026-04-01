@@ -1,2 +1,2 @@
 # 1stLOOK
-Live graph display or interface tracking all available data on deals in hollywood (+ over time).
+Live graph/display tracking all available data on any deals made in Hollywood (+ over time).
