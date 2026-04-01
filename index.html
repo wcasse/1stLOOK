@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1stLOOK — Hollywood Deals Tracker</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <h1><span class="logo">1st</span>LOOK</h1>
+      <p class="tagline">Hollywood Deals Tracker — Live data on first-look, overall &amp; exclusive deals</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- KPI Cards -->
+    <section class="kpi-bar" id="kpiBar">
+      <div class="kpi-card">
+        <span class="kpi-value" id="kpiTotal">—</span>
+        <span class="kpi-label">Total Deals Tracked</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-value" id="kpiActive">—</span>
+        <span class="kpi-label">Currently Active</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-value" id="kpiValue">—</span>
+        <span class="kpi-label">Known Deal Value</span>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-value" id="kpiStudios">—</span>
+        <span class="kpi-label">Studios / Buyers</span>
+      </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters-bar">
+      <div class="filter-group">
+        <label for="filterStudio">Studio / Buyer</label>
+        <select id="filterStudio"><option value="">All</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filterType">Deal Type</label>
+        <select id="filterType">
+          <option value="">All</option>
+          <option value="first-look">First Look</option>
+          <option value="overall">Overall</option>
+          <option value="exclusive">Exclusive</option>
+          <option value="pod">POD</option>
+          <option value="output">Output</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filterCategory">Category</label>
+        <select id="filterCategory">
+          <option value="">All</option>
+          <option value="TV">TV</option>
+          <option value="Film">Film</option>
+          <option value="TV/Film">TV/Film</option>
+          <option value="Film/TV">Film/TV</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="filterStatus">Status</label>
+        <select id="filterStatus">
+          <option value="">All</option>
+          <option value="active">Active</option>
+          <option value="expired">Expired</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="searchBox">Search</label>
+        <input type="text" id="searchBox" placeholder="Talent, company, studio...">
+      </div>
+    </section>
+
+    <!-- Charts Row -->
+    <section class="charts-grid">
+      <div class="chart-card">
+        <h2>Deals Over Time</h2>
+        <canvas id="chartTimeline"></canvas>
+      </div>
+      <div class="chart-card">
+        <h2>By Studio / Buyer</h2>
+        <canvas id="chartStudios"></canvas>
+      </div>
+    </section>
+
+    <section class="charts-grid">
+      <div class="chart-card">
+        <h2>Deal Type Breakdown</h2>
+        <canvas id="chartTypes"></canvas>
+      </div>
+      <div class="chart-card">
+        <h2>Active vs Expired</h2>
+        <canvas id="chartStatus"></canvas>
+      </div>
+    </section>
+
+    <!-- Timeline Scatter -->
+    <section class="chart-card chart-full">
+      <h2>Deal Landscape — Value &amp; Timeline</h2>
+      <p class="chart-subtitle">Bubble size = estimated deal value (where known). Click a bubble for details.</p>
+      <canvas id="chartBubble"></canvas>
+    </section>
+
+    <!-- Data Table -->
+    <section class="table-section">
+      <h2>All Deals <span class="count-badge" id="tableCount">0</span></h2>
+      <div class="table-wrap">
+        <table id="dealsTable">
+          <thead>
+            <tr>
+              <th data-sort="talent">Talent / Creator</th>
+              <th data-sort="company">Company</th>
+              <th data-sort="studio">Studio / Buyer</th>
+              <th data-sort="dealType">Deal Type</th>
+              <th data-sort="category">Category</th>
+              <th data-sort="announcedDate">Announced</th>
+              <th data-sort="estimatedValue">Est. Value</th>
+              <th data-sort="status">Status</th>
+            </tr>
+          </thead>
+          <tbody id="dealsBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>1stLOOK — Data compiled from public reporting (Deadline, Variety, THR, Puck, The Ankler). Last updated <span id="lastUpdated">—</span>.</p>
+  </footer>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="dealModal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
