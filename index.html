@@ -1,189 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>1stLOOK — Hollywood Deals Tracker</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1stLOOK — Hollywood Deals Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500;600&family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
-  <!-- Animated particle background -->
-  <canvas id="particleCanvas"></canvas>
 
-  <header>
-    <div class="header-inner">
-      <div>
-        <h1><span class="logo">1st</span>LOOK</h1>
-        <p class="tagline">Hollywood Deals Tracker</p>
-      </div>
-      <div class="header-stats">
-        <div class="header-stat">
-          <div class="header-stat-value" id="headerDeals">—</div>
-          <div class="header-stat-label">Deals Tracked</div>
-        </div>
-        <div class="header-stat">
-          <div class="header-stat-value" id="headerValue">—</div>
-          <div class="header-stat-label">Known Value</div>
-        </div>
-      </div>
-    </div>
-  </header>
+<!-- NOISE OVERLAY -->
+<div class="noise"></div>
 
-  <!-- Scrolling deal ticker -->
-  <div class="ticker-wrap">
-    <div class="ticker" id="ticker"></div>
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-left">
+    <div class="wordmark">1<span class="gold">st</span>LOOK</div>
+    <div class="header-sub">Hollywood Deals Intelligence / Producer Edition</div>
   </div>
+  <div class="header-right">
+    <div class="live-badge"><span class="pulse-dot"></span>LIVE DATA</div>
+    <div class="header-date" id="headerDate"></div>
+  </div>
+</header>
 
-  <main>
-    <!-- KPI Cards -->
-    <section class="kpi-bar" id="kpiBar">
-      <div class="kpi-card">
-        <span class="kpi-value" id="kpiTotal">—</span>
-        <span class="kpi-label">Total Deals</span>
-      </div>
-      <div class="kpi-card">
-        <span class="kpi-value" id="kpiActive">—</span>
-        <span class="kpi-label">Currently Active</span>
-      </div>
-      <div class="kpi-card">
-        <span class="kpi-value" id="kpiValue">—</span>
-        <span class="kpi-label">Known Deal Value</span>
-      </div>
-      <div class="kpi-card">
-        <span class="kpi-value" id="kpiStudios">—</span>
-        <span class="kpi-label">Studios / Buyers</span>
-      </div>
-    </section>
+<!-- TICKER -->
+<div class="ticker-rail">
+  <div class="ticker-inner" id="tickerInner">
+    <!-- populated by JS -->
+  </div>
+</div>
 
-    <!-- Network Graph -->
-    <section class="network-section">
-      <div class="section-title">Studio–Talent Network</div>
-      <div class="network-card">
-        <canvas id="networkCanvas"></canvas>
-        <div class="network-legend" id="networkLegend"></div>
-      </div>
-    </section>
+<!-- KPI ROW -->
+<section class="kpi-row">
+  <div class="kpi-card">
+    <div class="kpi-label">TOTAL VALUE TRACKED</div>
+    <div class="kpi-value" id="kpiTotal">—</div>
+    <div class="kpi-sub">across all deals</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">ACTIVE COMMITMENTS</div>
+    <div class="kpi-value" id="kpiActive">—</div>
+    <div class="kpi-sub">currently in effect</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">AVG DEAL VALUE</div>
+    <div class="kpi-value" id="kpiAvg">—</div>
+    <div class="kpi-sub">across all deal types</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">AVG ANNUAL VALUE</div>
+    <div class="kpi-value" id="kpiAnnual">—</div>
+    <div class="kpi-sub">per year across active deals</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">STUDIOS TRACKED</div>
+    <div class="kpi-value" id="kpiStudios">—</div>
+    <div class="kpi-sub">buyers in the market</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">TALENT / ENTITIES</div>
+    <div class="kpi-value" id="kpiTalent">—</div>
+    <div class="kpi-sub">unique deal-holders</div>
+  </div>
+</section>
 
-    <!-- Racing Bar Chart -->
-    <section class="race-section">
-      <div class="section-title">The Deal Race — Studios Over Time</div>
-      <div class="race-card">
-        <div class="race-controls">
-          <div class="race-year" id="raceYear">2014</div>
-          <button class="race-btn" id="racePlayBtn">Play</button>
-          <button class="race-btn" id="raceResetBtn">Reset</button>
-        </div>
-        <div id="raceContainer"></div>
-      </div>
-    </section>
+<!-- NAV TABS -->
+<nav class="section-nav">
+  <button class="tab-btn active" data-tab="overview">Overview</button>
+  <button class="tab-btn" data-tab="talent">Talent Rankings</button>
+  <button class="tab-btn" data-tab="studios">Studio Spend</button>
+  <button class="tab-btn" data-tab="dealtype">Deal Structure</button>
+  <button class="tab-btn" data-tab="timeline">Timeline Race</button>
+  <button class="tab-btn" data-tab="table">Deal Database</button>
+</nav>
 
-    <!-- Filters -->
-    <section class="filters-bar">
-      <div class="filter-group">
-        <label for="filterStudio">Studio / Buyer</label>
-        <select id="filterStudio"><option value="">All</option></select>
+<!-- TAB: OVERVIEW -->
+<section class="tab-content active" id="tab-overview">
+  <div class="chart-grid-2">
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <div class="chart-title">DEAL LANDSCAPE — Value vs Duration</div>
+        <div class="chart-note">Bubble size = Annual value / Color = Role type / Click bubble for detail</div>
       </div>
-      <div class="filter-group">
-        <label for="filterType">Deal Type</label>
-        <select id="filterType">
-          <option value="">All</option>
-          <option value="first-look">First Look</option>
-          <option value="overall">Overall</option>
-          <option value="exclusive">Exclusive</option>
-          <option value="pod">POD</option>
-          <option value="output">Output</option>
-        </select>
+      <div class="chart-wrap tall"><canvas id="bubbleChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">DEALS SIGNED — By Year</div>
+        <div class="chart-note">Count per year + cumulative</div>
       </div>
-      <div class="filter-group">
-        <label for="filterCategory">Category</label>
-        <select id="filterCategory">
-          <option value="">All</option>
-          <option value="TV">TV</option>
-          <option value="Film">Film</option>
-          <option value="TV/Film">TV/Film</option>
-          <option value="Film/TV">Film/TV</option>
-        </select>
+      <div class="chart-wrap"><canvas id="timelineChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">STATUS — Active vs Expired</div>
+        <div class="chart-note">By value, not count</div>
       </div>
-      <div class="filter-group">
-        <label for="filterStatus">Status</label>
-        <select id="filterStatus">
-          <option value="">All</option>
-          <option value="active">Active</option>
-          <option value="expired">Expired</option>
-        </select>
-      </div>
-      <div class="filter-group">
-        <label for="searchBox">Search</label>
-        <input type="text" id="searchBox" placeholder="Talent, company, studio...">
-      </div>
-    </section>
-
-    <!-- Charts Row -->
-    <section class="charts-grid">
-      <div class="chart-card">
-        <h2>Deals Over Time</h2>
-        <div class="chart-container"><canvas id="chartTimeline"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h2>By Studio / Buyer</h2>
-        <div class="chart-container-tall"><canvas id="chartStudios"></canvas></div>
-      </div>
-    </section>
-
-    <section class="charts-grid">
-      <div class="chart-card">
-        <h2>Deal Type Breakdown</h2>
-        <div class="chart-container"><canvas id="chartTypes"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h2>Active vs Expired</h2>
-        <div class="chart-container"><canvas id="chartStatus"></canvas></div>
-      </div>
-    </section>
-
-    <!-- Bubble -->
-    <section class="chart-card chart-full">
-      <h2>Deal Landscape — Value &amp; Timeline</h2>
-      <p class="chart-subtitle">Bubble size = estimated deal value (where known). Click a bubble for details.</p>
-      <div class="chart-container-bubble"><canvas id="chartBubble"></canvas></div>
-    </section>
-
-    <!-- Data Table -->
-    <section class="table-section">
-      <h2>All Deals <span class="count-badge" id="tableCount">0</span></h2>
-      <div class="table-wrap">
-        <table id="dealsTable">
-          <thead>
-            <tr>
-              <th data-sort="talent">Talent / Creator</th>
-              <th data-sort="company">Company</th>
-              <th data-sort="studio">Studio / Buyer</th>
-              <th data-sort="dealType">Deal Type</th>
-              <th data-sort="category">Category</th>
-              <th data-sort="announcedDate">Announced</th>
-              <th data-sort="estimatedValue">Est. Value</th>
-              <th data-sort="status">Status</th>
-            </tr>
-          </thead>
-          <tbody id="dealsBody"></tbody>
-        </table>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>1stLOOK — Data compiled from public reporting (Deadline, Variety, THR, Puck, The Ankler). Last updated <span id="lastUpdated">—</span>.</p>
-  </footer>
-
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal" id="dealModal">
-      <button class="modal-close" id="modalClose">&times;</button>
-      <div id="modalContent"></div>
+      <div class="chart-wrap"><canvas id="statusChart"></canvas></div>
     </div>
   </div>
+</section>
 
-  <script src="js/app.js"></script>
+<!-- TAB: TALENT RANKINGS -->
+<section class="tab-content" id="tab-talent">
+  <div class="chart-grid-2">
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <div class="chart-title">TOP TALENT — By Total Deal Value</div>
+        <div class="chart-note">Confirmed + reported figures / Click bar for deal detail</div>
+      </div>
+      <div class="chart-wrap xl"><canvas id="talentValueChart"></canvas></div>
+    </div>
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <div class="chart-title">ANNUAL VALUE BY ROLE</div>
+        <div class="chart-note">What each role type commands per year on average</div>
+      </div>
+      <div class="chart-wrap"><canvas id="roleValueChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- TAB: STUDIO SPEND -->
+<section class="tab-content" id="tab-studios">
+  <div class="chart-grid-2">
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <div class="chart-title">STUDIO TOTAL COMMITTED SPEND</div>
+        <div class="chart-note">Reported + estimated / All deal types</div>
+      </div>
+      <div class="chart-wrap tall"><canvas id="studioSpendChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">DEAL COUNT BY STUDIO</div>
+        <div class="chart-note">Volume of deals, not value</div>
+      </div>
+      <div class="chart-wrap"><canvas id="studioCountChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">AVG DEAL VALUE BY STUDIO</div>
+        <div class="chart-note">Who pays more per deal</div>
+      </div>
+      <div class="chart-wrap"><canvas id="studioAvgChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- TAB: DEAL STRUCTURE -->
+<section class="tab-content" id="tab-dealtype">
+  <div class="chart-grid-2">
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">DEAL TYPE — Value Distribution</div>
+        <div class="chart-note">Overall vs First Look vs Exclusive</div>
+      </div>
+      <div class="chart-wrap"><canvas id="typeValueChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">DEAL DURATION — Distribution</div>
+        <div class="chart-note">How long deals typically run</div>
+      </div>
+      <div class="chart-wrap"><canvas id="durationChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">CATEGORY BREAKDOWN</div>
+        <div class="chart-note">TV / Film / Both — by deal count</div>
+      </div>
+      <div class="chart-wrap"><canvas id="categoryChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-header">
+        <div class="chart-title">OVERALL vs FIRST LOOK — Annual Value</div>
+        <div class="chart-note">Average annual payout by deal structure</div>
+      </div>
+      <div class="chart-wrap"><canvas id="typeAnnualChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- TAB: TIMELINE RACE -->
+<section class="tab-content" id="tab-timeline">
+  <div class="chart-card full-width">
+    <div class="chart-header">
+      <div class="chart-title">STUDIO SPENDING RACE — 2014–2026</div>
+      <div class="chart-note">Cumulative committed spend over time / Watch studios accumulate power</div>
+    </div>
+    <div class="race-controls">
+      <button class="race-btn" id="racePlay">▶ PLAY</button>
+      <button class="race-btn" id="raceReset">↺ RESET</button>
+      <div class="race-year-display"><span class="race-year-label">YEAR</span><span id="raceYearVal">—</span></div>
+    </div>
+    <div class="chart-wrap race-wrap"><canvas id="raceChart"></canvas></div>
+  </div>
+</section>
+
+<!-- TAB: DATABASE TABLE -->
+<section class="tab-content" id="tab-table">
+  <div class="table-controls">
+    <input class="table-search" id="tableSearch" type="text" placeholder="Search talent, studio, notes..." />
+    <select class="table-filter" id="filterStudio">
+      <option value="">All Studios</option>
+    </select>
+    <select class="table-filter" id="filterType">
+      <option value="">All Deal Types</option>
+      <option value="Overall">Overall</option>
+      <option value="First Look">First Look</option>
+      <option value="Exclusive">Exclusive</option>
+    </select>
+    <select class="table-filter" id="filterRole">
+      <option value="">All Roles</option>
+    </select>
+    <select class="table-filter" id="filterStatus">
+      <option value="">All Status</option>
+      <option value="Active">Active</option>
+      <option value="Expired">Expired</option>
+    </select>
+    <select class="table-filter" id="filterConfidence">
+      <option value="">All Confidence</option>
+      <option value="Confirmed">Confirmed</option>
+      <option value="Reported">Reported</option>
+      <option value="Estimated">Estimated</option>
+      <option value="Undisclosed">Undisclosed</option>
+    </select>
+    <div class="table-count" id="tableCount">—</div>
+  </div>
+  <div class="table-wrap">
+    <table class="deals-table" id="dealsTable">
+      <thead>
+        <tr>
+          <th class="sortable" data-col="talent">TALENT <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="studio">STUDIO <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="type">TYPE <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="role">ROLE <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="totalValue">TOTAL VALUE <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="annualValue">ANNUAL <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="duration">DURATION <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="startYear">YEARS <span class="sort-icon">↕</span></th>
+          <th class="sortable" data-col="status">STATUS <span class="sort-icon">↕</span></th>
+          <th>CONFIDENCE</th>
+        </tr>
+      </thead>
+      <tbody id="dealsTableBody"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- DEAL MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-badge" id="modalBadge"></div>
+    <div class="modal-talent" id="modalTalent"></div>
+    <div class="modal-company" id="modalCompany"></div>
+    <div class="modal-meta-grid">
+      <div class="modal-meta-item">
+        <div class="modal-meta-label">STUDIO / BUYER</div>
+        <div class="modal-meta-val" id="modalStudio"></div>
+      </div>
+      <div class="modal-meta-item">
+        <div class="modal-meta-label">NETWORK / PLATFORM</div>
+        <div class="modal-meta-val" id="modalNetwork"></div>
+      </div>
+      <div class="modal-meta-item">
+        <div class="modal-meta-label">DEAL TYPE</div>
+        <div class="modal-meta-val" id="modalType"></div>
+      </div>
+      <div class="modal-meta-item">
+        <div class="modal-meta-label">ROLE</div>
+        <div class="modal-meta-val" id="modalRole"></div>
+      </div>
+      <div class="modal-meta-item">
+        <div class="modal-meta-label">TOTAL VALUE</div>
+        <div class="modal-meta-val gold large" id="modalTotal"></div>
+      </div>
+      <div class="modal-meta-item">
+        <div class="modal-meta-label">ANNUAL VALUE</div>
+        <div class="modal-meta-val gold" id="modalAnnual"></div>
+      </div>
+      <div class="modal-meta-item">
+        <div class="modal-meta-label">DURATION</div>
+        <div class="modal-meta-val" id="modalDuration"></div>
+      </div>
+      <div class="modal-meta-item">
+        <div class="modal-meta-label">PERIOD</div>
+        <div class="modal-meta-val" id="modalPeriod"></div>
+      </div>
+      <div class="modal-meta-item">
+        <div class="modal-meta-label">CATEGORY</div>
+        <div class="modal-meta-val" id="modalCategory"></div>
+      </div>
+      <div class="modal-meta-item">
+        <div class="modal-meta-label">VALUE CONFIDENCE</div>
+        <div class="modal-meta-val" id="modalConfidence"></div>
+      </div>
+    </div>
+    <div class="modal-projects-label">NOTABLE PROJECTS UNDER DEAL</div>
+    <div class="modal-projects" id="modalProjects"></div>
+    <div class="modal-notes" id="modalNotes"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-left">
+    <span class="footer-brand">1stLOOK</span> — Hollywood Deals Intelligence Platform
+  </div>
+  <div class="footer-right">
+    Data sourced from public reporting (Variety, THR, Deadline, WSJ). Values marked Estimated are based on industry comps and reporting fragments. Not financial advice.
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
