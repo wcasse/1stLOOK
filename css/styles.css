@@ -190,13 +190,22 @@ main {
   margin-bottom: 1.5rem;
 }
 
-canvas {
-  width: 100% !important;
-  max-height: 340px;
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 320px;
 }
 
-.chart-full canvas {
-  max-height: 420px;
+.chart-container-tall {
+  position: relative;
+  width: 100%;
+  height: 440px;
+}
+
+.chart-container-bubble {
+  position: relative;
+  width: 100%;
+  height: 520px;
 }
 
 /* Table */

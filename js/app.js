@@ -216,6 +216,7 @@
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         interaction: { mode: 'index', intersect: false },
         plugins: { legend: { labels: { color: '#8888a0' } } },
         scales: {
@@ -251,6 +252,7 @@
       options: {
         indexAxis: 'y',
         responsive: true,
+        maintainAspectRatio: false,
         plugins: { legend: { display: false } },
         scales: {
           x: { ticks: { color: '#8888a0' }, grid: { color: 'rgba(35,35,58,.5)' } },
@@ -282,8 +284,9 @@
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
-          legend: { position: 'right', labels: { color: '#8888a0', padding: 12 } }
+          legend: { position: 'right', labels: { color: '#8888a0', padding: 12, font: { size: 13 } } }
         }
       }
     });
@@ -309,8 +312,9 @@
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
-          legend: { position: 'right', labels: { color: '#8888a0', padding: 12 } }
+          legend: { position: 'right', labels: { color: '#8888a0', padding: 12, font: { size: 13 } } }
         }
       }
     });
@@ -346,6 +350,7 @@
       data: { datasets },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: { display: false },
           tooltip: {
