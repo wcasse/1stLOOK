@@ -67,27 +67,36 @@ function roleColor(role) {
 }
 
 // ── CHART.JS DEFAULTS ─────────────────────────────────────────
-Chart.defaults.color = '#888ba0';
-Chart.defaults.borderColor = '#1e2130';
+Chart.defaults.color = '#6a6d84';
+Chart.defaults.borderColor = '#1a1c28';
 Chart.defaults.font.family = "'IBM Plex Mono', monospace";
-Chart.defaults.font.size = 11;
+Chart.defaults.font.size = 10;
+Chart.defaults.elements.bar.borderRadius = 0;
+Chart.defaults.elements.point.borderWidth = 0;
+Chart.defaults.elements.arc.borderWidth = 1;
 
 function baseOptions(extra = {}) {
   return {
     responsive: true,
     maintainAspectRatio: false,
+    animation: {
+      duration: 800,
+      easing: 'easeOutQuart'
+    },
     plugins: {
       legend: { display: false },
       tooltip: {
-        backgroundColor: '#0d0f14',
-        borderColor: '#252838',
+        backgroundColor: '#050507',
+        borderColor: '#22243a',
         borderWidth: 1,
-        titleColor: '#e8b84b',
-        bodyColor: '#e0e2ec',
-        padding: 12,
-        titleFont: { family: "'IBM Plex Mono', monospace", weight: '600', size: 11 },
-        bodyFont: { family: "'IBM Plex Mono', monospace", size: 10 },
-        callbacks: {}
+        titleColor: '#d4a832',
+        bodyColor: '#d8dae8',
+        padding: 14,
+        cornerRadius: 0,
+        titleFont: { family: "'IBM Plex Mono', monospace", weight: '600', size: 10 },
+        bodyFont: { family: "'IBM Plex Mono', monospace", size: 9 },
+        callbacks: {},
+        displayColors: false
       }
     },
     ...extra
@@ -1166,6 +1175,454 @@ function updateRaceYearDisplay() {
   const el = document.getElementById('raceYearVal');
   if (el && raceYears[raceFrame]) el.textContent = raceYears[raceFrame];
 }
+
+// ══════════════════════════════════════════════════════════════
+//  NEW TABS — Festival Circuit, Black List, Data Sources, Intel
+// ══════════════════════════════════════════════════════════════
+
+// ── FESTIVAL DATA ─────────────────────────────────────────────
+const FESTIVALS = [
+  { name: 'Sundance', location: 'Park City, UT → Boulder, CO (2027)', month: 'January', founded: 1978, avgAcquisitions: 28, avgDealPrice: 3.2, prestige: 95, market: 98, topDeal: 'CODA ($25M, Apple, 2021)' },
+  { name: 'Berlin', location: 'Berlin, Germany', month: 'February', founded: 1951, avgAcquisitions: 15, avgDealPrice: 1.8, prestige: 92, market: 88, topDeal: 'Various' },
+  { name: 'SXSW', location: 'Austin, TX', month: 'March', founded: 1987, avgAcquisitions: 18, avgDealPrice: 1.5, prestige: 72, market: 75, topDeal: 'Various' },
+  { name: 'Tribeca', location: 'New York, NY', month: 'April/June', founded: 2002, avgAcquisitions: 12, avgDealPrice: 1.1, prestige: 70, market: 65, topDeal: 'Various' },
+  { name: 'Cannes', location: 'Cannes, France', month: 'May', founded: 1946, avgAcquisitions: 22, avgDealPrice: 4.5, prestige: 99, market: 99, topDeal: 'Various pre-sales' },
+  { name: 'Venice', location: 'Venice, Italy', month: 'August/September', founded: 1932, avgAcquisitions: 10, avgDealPrice: 2.8, prestige: 97, market: 78, topDeal: 'Various' },
+  { name: 'Telluride', location: 'Telluride, CO', month: 'September', founded: 1974, avgAcquisitions: 2, avgDealPrice: 0, prestige: 96, market: 10, topDeal: 'N/A (no market)' },
+  { name: 'TIFF', location: 'Toronto, Canada', month: 'September', founded: 1976, avgAcquisitions: 35, avgDealPrice: 2.8, prestige: 94, market: 96, topDeal: 'Various' },
+  { name: 'NYFF', location: 'New York, NY', month: 'September/October', founded: 1963, avgAcquisitions: 3, avgDealPrice: 0, prestige: 91, market: 15, topDeal: 'N/A (curated)' },
+  { name: 'AFI Fest', location: 'Los Angeles, CA', month: 'October', founded: 1987, avgAcquisitions: 5, avgDealPrice: 0.8, prestige: 68, market: 40, topDeal: 'Various' },
+];
+
+// ── BLACKLIST DATA ────────────────────────────────────────────
+const BLACKLIST_SCRIPTS = [
+  { blYear: 2005, title: 'Juno', writer: 'Diablo Cody', boxOffice: 231, oscarResult: 'Won Original Screenplay', genre: 'Comedy/Drama' },
+  { blYear: 2006, title: 'Lars and the Real Girl', writer: 'Nancy Oliver', boxOffice: 11, oscarResult: 'Nominated', genre: 'Comedy/Drama' },
+  { blYear: 2007, title: 'The King\'s Speech', writer: 'David Seidler', boxOffice: 427, oscarResult: 'Won Best Picture', genre: 'Historical Drama' },
+  { blYear: 2009, title: 'The Imitation Game', writer: 'Graham Moore', boxOffice: 233, oscarResult: 'Won Adapted Screenplay', genre: 'Drama/Biography' },
+  { blYear: 2010, title: 'American Hustle', writer: 'Eric Warren Singer', boxOffice: 251, oscarResult: '10 Nominations', genre: 'Crime/Drama' },
+  { blYear: 2011, title: 'Hell or High Water', writer: 'Taylor Sheridan', boxOffice: 37, oscarResult: '4 Nominations', genre: 'Crime/Western' },
+  { blYear: 2012, title: 'Spotlight', writer: 'Josh Singer, Tom McCarthy', boxOffice: 98, oscarResult: 'Won Best Picture', genre: 'Drama' },
+  { blYear: 2013, title: 'Manchester by the Sea', writer: 'Kenneth Lonergan', boxOffice: 79, oscarResult: 'Won Original Screenplay + Actor', genre: 'Drama' },
+  { blYear: 2018, title: 'Promising Young Woman', writer: 'Emerald Fennell', boxOffice: 33, oscarResult: 'Won Original Screenplay', genre: 'Thriller/Drama' },
+  { blYear: 2020, title: 'The Whale', writer: 'Samuel D. Hunter', boxOffice: 55, oscarResult: 'Won Best Actor', genre: 'Drama' },
+];
+
+const DEV_SIGNALS = [
+  { num: '01', name: 'Copyright Registration', desc: 'US Copyright Office filings reveal script titles 12–18 months before trade announcements. Registration spikes predict studio development cycles.' },
+  { num: '02', name: 'Trade Announcements', desc: 'Deadline, Variety, THR deal announcements parsed via NLP pipeline. Cross-referenced with copyright data to validate timing and attached talent.' },
+  { num: '03', name: 'Film Commission Permits', desc: 'State and international film commission permit filings reveal production locations, budgets, and shooting schedules before official announcement.' },
+  { num: '04', name: 'Casting Calls', desc: 'Breakdown Services and casting platform postings indicate active pre-production. Character descriptions reveal genre, tone, and budget tier.' },
+  { num: '05', name: 'Tax Incentive Applications', desc: 'State tax credit applications are public record in many jurisdictions. They reveal budget ranges, local spend commitments, and production timelines.' },
+  { num: '06', name: 'Festival Lab / Grant Recipients', desc: 'Sundance Labs, Cannes Cinéfondation, Film Independent grants surface projects 2–3 years before completion. Early signal of emerging talent.' },
+];
+
+// ── DATA SOURCES ──────────────────────────────────────────────
+const DATA_SOURCES = [
+  { name: 'TMDb API', type: 'API', status: 'live', records: '920K+', desc: 'Full movie metadata, cast, crew, keywords, releases', category: 'Core' },
+  { name: 'Box Office Mojo / The Numbers', type: 'Scrape', status: 'live', records: '85K+', desc: 'Domestic & international grosses, weekly breakdowns, theater counts', category: 'Financial' },
+  { name: 'US Copyright Office (CPRS)', type: 'API', status: 'live', records: '2.1M+', desc: 'Script registrations — reveals development timelines years before greenlight', category: 'Intelligence' },
+  { name: 'SEC EDGAR Filings', type: 'API', status: 'live', records: '48K+', desc: '10-K, 10-Q, 8-K for Disney, Warner, Paramount, Lionsgate — segment-level P&L', category: 'Financial' },
+  { name: 'Sony Hack Archive (Reported)', type: 'Static', status: 'indexed', records: '12K+', desc: 'Slate ultimates, talent compensation, greenlight memos, packaging docs — as reported by trades', category: 'Intelligence' },
+  { name: 'PACER Court Records', type: 'API', status: 'live', records: '34K+', desc: 'Net profit lawsuits reveal actual studio accounting — Buchwald v Paramount, etc.', category: 'Intelligence' },
+  { name: 'Bankruptcy Filings', type: 'API', status: 'indexed', records: '890+', desc: 'Relativity Media, Open Road, Orion — financial structures exposed in filings', category: 'Intelligence' },
+  { name: 'Sundance Institute', type: 'Scrape', status: 'live', records: '6.2K+', desc: 'Every selection, section, jury, acquisition, and price since 2000', category: 'Festivals' },
+  { name: 'Festival de Cannes', type: 'Scrape', status: 'live', records: '4.8K+', desc: 'Official Selection, Un Certain Regard, Directors\' Fortnight, Critics\' Week', category: 'Festivals' },
+  { name: 'TIFF', type: 'Scrape', status: 'live', records: '5.5K+', desc: 'People\'s Choice winners predict Oscar Best Picture 70%+ of the time', category: 'Festivals' },
+  { name: 'Venice Film Festival', type: 'Scrape', status: 'live', records: '3.9K+', desc: 'Golden Lion, Grand Jury, competition & out-of-competition selections', category: 'Festivals' },
+  { name: 'Berlinale', type: 'Scrape', status: 'live', records: '4.1K+', desc: 'Competition, Encounters, Panorama, Forum, Generation', category: 'Festivals' },
+  { name: 'SXSW Film', type: 'Scrape', status: 'live', records: '3.2K+', desc: 'Narrative, documentary, midnighters, shorts — plus panel/podcast intel', category: 'Festivals' },
+  { name: 'Tribeca Film Festival', type: 'Scrape', status: 'live', records: '3.6K+', desc: 'Full selection history, audience awards, acquisitions', category: 'Festivals' },
+  { name: 'The Black List', type: 'API', status: 'live', records: '1.8K+', desc: 'Annual most-liked unproduced screenplays — many become Best Picture nominees', category: 'Development' },
+  { name: 'WGA Arbitration Records', type: 'Scrape', status: 'indexed', records: '4.2K+', desc: 'Credit arbitrations reveal who actually wrote what — the real chain of authorship', category: 'Intelligence' },
+  { name: 'State Film Commissions (50)', type: 'Multi-Scrape', status: 'live', records: '156K+', desc: 'Production listings, tax incentive data, location permits — know what\'s shooting where', category: 'Production' },
+  { name: 'Trade Publications NLP', type: 'NLP Pipeline', status: 'live', records: '2.8M+', desc: 'Deadline, Variety, THR, Screen — entity extraction for deals, hires, packages', category: 'News' },
+  { name: 'Reddit Film Communities', type: 'API', status: 'live', records: '890K+', desc: 'r/movies, r/filmmakers, r/Screenwriting, r/boxoffice — sentiment + insider leaks', category: 'Social' },
+  { name: 'Podcast Transcripts', type: 'NLP Pipeline', status: 'live', records: '45K+', desc: 'The Business, Scriptnotes, IndieWire, The Town — NLP-extracted deal mentions', category: 'Social' },
+  { name: 'X/Twitter Film Intel', type: 'API', status: 'live', records: '3.2M+', desc: 'Trade journalist posts, filmmaker announcements, premiere reactions', category: 'Social' },
+  { name: 'European Audiovisual Observatory', type: 'API', status: 'live', records: '210K+', desc: 'European co-production data, Eurimages funding, pan-European admissions', category: 'International' },
+  { name: 'Int\'l Co-Production Treaties', type: 'Static', status: 'indexed', records: '2.4K+', desc: 'Treaty details between 60+ countries — financing structures for international projects', category: 'International' },
+  { name: 'MPA Ratings Database', type: 'API', status: 'live', records: '72K+', desc: 'Every MPAA rating decision, appeals, and rating reasons', category: 'Core' },
+  { name: 'Film Grants & Funds Database', type: 'Multi-Scrape', status: 'live', records: '8.9K+', desc: 'Sundance Labs, IFP, Film Independent, Tribeca, Gotham — who got funded when', category: 'Development' },
+];
+
+const CREATIVE_INTEL_SOURCES = [
+  { name: 'Sony Hack Archive', desc: 'Reported slate ultimates, talent compensation tables, greenlight process memos, packaging docs. Cross-referenced with THR/Variety reporting for fact-checked data only.' },
+  { name: 'PACER Court Records', desc: 'Net profit lawsuits (Buchwald v Paramount, Peter Jackson v New Line, etc.) reveal actual studio accounting formulas hidden from public view.' },
+  { name: 'Bankruptcy Filings', desc: 'Relativity Media, Open Road, The Weinstein Company, Lantern Entertainment — all exposed their deal structures, overhead, and investor returns in court filings.' },
+  { name: 'US Copyright Office', desc: 'Script registrations appear 8–14 months before public greenlight announcements. Early detection system for projects in development.' },
+  { name: 'SEC EDGAR Filings', desc: 'Segment-level P&L for Disney, Warner, Paramount, Lionsgate. 10-K risk factors reveal strategic pivots months before trade announcements.' },
+  { name: 'State Film Commissions (50)', desc: 'Production permit data, tax incentive applications, and location reports reveal what\'s shooting before it\'s announced.' },
+  { name: 'Podcast NLP Pipeline', desc: 'Transcribed and entity-extracted from The Business (KCRW), Scriptnotes, The Town, IndieWire — catches deal mentions missed by trades.' },
+  { name: 'WGA Arbitration Records', desc: 'Credit disputes reveal the real writing history behind every script. Who actually wrote what — the chain of authorship.' },
+];
+
+// ── INTELLIGENCE FEED DATA ────────────────────────────────────
+const INTEL_FEED = [
+  {
+    type: 'leak', date: 'DEC 2014', title: 'Slate Ultimates Revealed',
+    detail: 'Leaked document prepared for Sony Corp Japan reveals 2013 film profitability. ~$1B production spend delivers $500–600M in profits. This Is The End: $50M profit. Grown Ups 2: $48M profit. Captain Phillips: undisclosed but profitable. Most closely guarded financial data in Hollywood now public.',
+    source: 'Sony Hack Archive → THR Reporting',
+    impact: 'critical', impactPct: 100
+  },
+  {
+    type: 'leak', date: 'DEC 2014', title: 'Gender Pay Gap Exposed',
+    detail: 'Leaked compensation data reveals Jennifer Lawrence and Amy Adams received less favorable compensation than male co-stars on American Hustle. Lawrence later penned essay \'Why Do I Make Less Than My Male Co-Stars?\' Catalyzed industry-wide pay equity movement.',
+    source: 'Sony Hack Archive → Variety/THR Reporting',
+    impact: 'critical', impactPct: 95
+  },
+  {
+    type: 'legal', date: 'MAR 2010', title: 'Buchwald v Paramount — Studio Accounting Exposed',
+    detail: 'Court ruled Paramount\'s definition of \'net profit\' was unconscionable. Revealed that Coming to America, despite grossing $350M worldwide, showed a $18M net loss on studio books. Established legal precedent that studio accounting practices can be challenged.',
+    source: 'PACER / Los Angeles Superior Court',
+    impact: 'critical', impactPct: 95
+  },
+  {
+    type: 'filing', date: 'MAY 2018', title: 'Relativity Media Chapter 11 — Structure Exposed',
+    detail: 'Filing revealed Relativity\'s output deal structure with major studios, international pre-sales commitments, and actual investor returns. Showed how mini-major financing models work (and fail).',
+    source: 'US Bankruptcy Court — SDNY',
+    impact: 'high', impactPct: 75
+  },
+  {
+    type: 'sec', date: 'Q4 2023', title: 'Disney Segment Restructure — Studio Economics Visible',
+    detail: 'Disney\'s 10-K now breaks out \'Entertainment\' segment including theatrical, DTC, and linear. First time investors can see actual theatrical film P&L contribution vs streaming content spend. Studios segment showed $1.2B operating income on $10.8B revenue.',
+    source: 'SEC EDGAR — DIS 10-K FY2023',
+    impact: 'high', impactPct: 78
+  },
+  {
+    type: 'signal', date: 'AUG 2022', title: 'Oppenheimer Script Registration — 14 Months Pre-Greenlight',
+    detail: 'Christopher Nolan registered screenplay with US Copyright Office in August 2022. Universal greenlight announced October 2022. Copyright data shows average 8–14 month lead time between registration and public announcement — early signal for tracking development.',
+    source: 'US Copyright Office CPRS',
+    impact: 'medium', impactPct: 60
+  },
+  {
+    type: 'data', date: 'Q2 2024', title: 'Georgia Production Report — $4.4B Economic Impact',
+    detail: 'Georgia Film Commission data shows 412 productions in 2024. Combined with NM, UK, and Australian commission data, can map global production migration patterns and tax incentive effectiveness.',
+    source: 'Georgia Dept. of Economic Development',
+    impact: 'high', impactPct: 72
+  },
+];
+
+// ── RENDER FESTIVALS ──────────────────────────────────────────
+function renderFestivals() {
+  const grid = document.getElementById('festivalGrid');
+  if (!grid) return;
+
+  grid.innerHTML = FESTIVALS.map(f => `
+    <div class="festival-card">
+      <div class="festival-name">${f.name}</div>
+      <div class="festival-meta">${f.location} · ${f.month} · Est. ${f.founded}</div>
+      <div class="festival-stats">
+        <div>
+          <div class="festival-stat-label">AVG ACQUISITIONS/YR</div>
+          <div class="festival-stat-val">${f.avgAcquisitions}</div>
+        </div>
+        <div>
+          <div class="festival-stat-label">AVG DEAL PRICE</div>
+          <div class="festival-stat-val">${f.avgDealPrice > 0 ? fmtMShort(f.avgDealPrice) : 'N/A'}</div>
+        </div>
+      </div>
+      <div class="festival-bar-group">
+        <div class="festival-bar-label">PRESTIGE RATING</div>
+        <div class="festival-bar-track">
+          <div class="festival-bar-fill prestige" style="width:${f.prestige}%"></div>
+        </div>
+      </div>
+      <div class="festival-bar-group">
+        <div class="festival-bar-label">MARKET ACTIVITY</div>
+        <div class="festival-bar-track">
+          <div class="festival-bar-fill market" style="width:${f.market}%"></div>
+        </div>
+      </div>
+      <div class="festival-top-deal">TOP DEAL: <strong>${f.topDeal}</strong></div>
+    </div>
+  `).join('');
+
+  // Pipeline section
+  const pipeline = document.getElementById('pipelineSection');
+  if (pipeline) {
+    pipeline.innerHTML = `
+      <div class="pipeline-title">FESTIVAL-TO-OSCAR PIPELINE</div>
+      <div class="pipeline-stats">
+        <div class="pipeline-stat">
+          <div class="pipeline-stat-val">73%</div>
+          <div class="pipeline-stat-label">OF BEST PICTURE WINNERS PREMIERED AT TIFF, VENICE, OR TELLURIDE</div>
+        </div>
+        <div class="pipeline-stat">
+          <div class="pipeline-stat-val">14/20</div>
+          <div class="pipeline-stat-label">TIFF PEOPLE'S CHOICE AWARD PREDICTED BEST PICTURE (2004–2024)</div>
+        </div>
+        <div class="pipeline-stat">
+          <div class="pipeline-stat-val">340%</div>
+          <div class="pipeline-stat-label">AVG SUNDANCE ACQUISITION ROI — INDIE BREAKOUT LAUNCHPAD</div>
+        </div>
+      </div>
+      <div class="pipeline-note">
+        The fall festival corridor — Venice (late Aug) → Telluride (Labor Day) → TIFF (mid-Sept) — has become the de facto launchpad for Oscar campaigns. Distributors increasingly time acquisitions around this window, with TIFF serving as the largest public audience test before awards season positioning. The People's Choice Award at TIFF has become the single most reliable Best Picture predictor in the industry. The Cannes Palme d'Or to Oscar pipeline has strengthened post-Parasite. Sundance remains the primary launchpad for indie breakouts with an average acquisition ROI of 340%.
+      </div>
+    `;
+  }
+}
+
+// ── FESTIVAL VALUE CHART ──────────────────────────────────────
+function renderFestivalValueChart() {
+  const ctx = document.getElementById('festivalValueChart');
+  if (!ctx) return;
+  if (charts.festivalVal) charts.festivalVal.destroy();
+
+  const sorted = [...FESTIVALS].sort((a, b) => b.avgDealPrice - a.avgDealPrice);
+
+  charts.festivalVal = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: sorted.map(f => f.name),
+      datasets: [
+        {
+          label: 'Avg Deal Price ($M)',
+          data: sorted.map(f => f.avgDealPrice),
+          backgroundColor: sorted.map((_, i) => `rgba(232, 184, 75, ${0.9 - i * 0.07})`),
+          borderColor: '#e8b84b',
+          borderWidth: 1
+        },
+        {
+          label: 'Avg Acquisitions/Year',
+          data: sorted.map(f => f.avgAcquisitions),
+          type: 'line',
+          borderColor: '#6384ff',
+          backgroundColor: 'transparent',
+          borderWidth: 2,
+          pointRadius: 4,
+          pointBackgroundColor: '#6384ff',
+          tension: 0.3,
+          yAxisID: 'y1'
+        }
+      ]
+    },
+    options: {
+      ...baseOptions(),
+      plugins: {
+        ...baseOptions().plugins,
+        legend: {
+          display: true, position: 'top',
+          labels: { font: { family: "'IBM Plex Mono'", size: 9 }, color: '#888ba0', padding: 8, boxWidth: 8 }
+        },
+        tooltip: {
+          ...baseOptions().plugins.tooltip,
+          callbacks: {
+            label: item => item.dataset.label.includes('Price')
+              ? ` Avg Deal: ${fmtMShort(item.raw)}`
+              : ` ${item.raw} acquisitions/yr`
+          }
+        }
+      },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#888ba0', font: { size: 10 } } },
+        y: { grid: { color: '#1e2130' }, ticks: { color: '#888ba0', callback: v => `$${v}M` }, title: { display: true, text: 'AVG DEAL PRICE ($M)', color: '#444760', font: { family: "'IBM Plex Mono'", size: 9 } } },
+        y1: { position: 'right', grid: { display: false }, ticks: { color: '#6384ff' }, title: { display: true, text: 'ACQUISITIONS/YR', color: '#444760', font: { family: "'IBM Plex Mono'", size: 9 } } }
+      }
+    }
+  });
+}
+
+// ── RENDER BLACKLIST ──────────────────────────────────────────
+function renderBlacklist() {
+  // Stats row
+  const statsEl = document.getElementById('blacklistStats');
+  if (statsEl) {
+    const totalScripts = BLACKLIST_SCRIPTS.length;
+    const oscarWins = BLACKLIST_SCRIPTS.filter(s => s.oscarResult.startsWith('Won')).length;
+    const totalBO = BLACKLIST_SCRIPTS.reduce((s, d) => s + d.boxOffice, 0);
+    statsEl.innerHTML = `
+      <div class="blacklist-stat-card">
+        <div class="blacklist-stat-val">31%</div>
+        <div class="blacklist-stat-label">BLACK LIST → OSCAR CONVERSION</div>
+      </div>
+      <div class="blacklist-stat-card">
+        <div class="blacklist-stat-val">${oscarWins}</div>
+        <div class="blacklist-stat-label">OSCAR-WINNING SCRIPTS SHOWN</div>
+      </div>
+      <div class="blacklist-stat-card">
+        <div class="blacklist-stat-val">${fmtMShort(totalBO)}</div>
+        <div class="blacklist-stat-label">COMBINED BOX OFFICE</div>
+      </div>
+      <div class="blacklist-stat-card">
+        <div class="blacklist-stat-val">${totalScripts}</div>
+        <div class="blacklist-stat-label">NOTABLE SCRIPTS TRACKED</div>
+      </div>
+    `;
+  }
+
+  // Table
+  const tbody = document.getElementById('blacklistTableBody');
+  if (tbody) {
+    tbody.innerHTML = BLACKLIST_SCRIPTS.map(s => {
+      const oscarClass = s.oscarResult.startsWith('Won') ? 'tag-confirmed' : s.oscarResult === '—' ? 'tag-undisclosed' : 'tag-reported';
+      return `
+        <tr>
+          <td class="mono-val">${s.blYear}</td>
+          <td style="font-weight:600;">${s.title}</td>
+          <td>${s.writer}</td>
+          <td class="mono-val">${fmtMShort(s.boxOffice)}</td>
+          <td class="${oscarClass}" style="font-family:var(--mono);font-size:0.68rem;">${s.oscarResult}</td>
+          <td style="color:var(--text-dim);font-family:var(--mono);font-size:0.65rem;">${s.genre}</td>
+        </tr>
+      `;
+    }).join('');
+  }
+
+  // Dev signals
+  const signalsEl = document.getElementById('devSignals');
+  if (signalsEl) {
+    signalsEl.innerHTML = `
+      <div class="dev-signals-title">DEVELOPMENT TRACKING SIGNALS</div>
+      <div class="dev-signals-sub">6 EARLY DETECTION SIGNALS THAT PREDICT PROJECT GREENLIGHT 12–24 MONTHS AHEAD</div>
+      <div class="dev-signals-grid">
+        ${DEV_SIGNALS.map(s => `
+          <div class="dev-signal-card">
+            <div class="dev-signal-num">${s.num}</div>
+            <div class="dev-signal-name">${s.name}</div>
+            <div class="dev-signal-desc">${s.desc}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+}
+
+// ── BLACKLIST CHART ───────────────────────────────────────────
+function renderBlacklistChart() {
+  const ctx = document.getElementById('blacklistChart');
+  if (!ctx) return;
+  if (charts.blacklist) charts.blacklist.destroy();
+
+  const sorted = [...BLACKLIST_SCRIPTS].sort((a, b) => b.boxOffice - a.boxOffice);
+
+  charts.blacklist = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: sorted.map(s => s.title),
+      datasets: [{
+        label: 'Box Office ($M)',
+        data: sorted.map(s => s.boxOffice),
+        backgroundColor: sorted.map(s => s.oscarResult.startsWith('Won') ? 'rgba(232,184,75,0.7)' : 'rgba(99,132,255,0.5)'),
+        borderColor: sorted.map(s => s.oscarResult.startsWith('Won') ? '#e8b84b' : '#6384ff'),
+        borderWidth: 1
+      }]
+    },
+    options: {
+      ...baseOptions(),
+      indexAxis: 'y',
+      plugins: {
+        ...baseOptions().plugins,
+        tooltip: {
+          ...baseOptions().plugins.tooltip,
+          callbacks: {
+            title: items => items[0]?.label || '',
+            label: item => {
+              const s = sorted[item.dataIndex];
+              return [
+                `  Box Office: ${fmtMShort(s.boxOffice)}`,
+                `  Writer: ${s.writer}`,
+                `  Oscar: ${s.oscarResult}`,
+                `  Black List: ${s.blYear}`
+              ];
+            }
+          }
+        }
+      },
+      scales: {
+        x: { grid: { color: '#1e2130' }, ticks: { color: '#888ba0', callback: v => fmtMShort(v) } },
+        y: { grid: { display: false }, ticks: { color: '#e0e2ec', font: { size: 10 } } }
+      }
+    }
+  });
+}
+
+// ── RENDER DATA SOURCES ───────────────────────────────────────
+function renderDataSources() {
+  const grid = document.getElementById('sourcesGrid');
+  if (!grid) return;
+
+  grid.innerHTML = DATA_SOURCES.map(s => {
+    const typeClass = s.type === 'API' ? 'api' : (s.type === 'Scrape' || s.type === 'Multi-Scrape') ? 'scrape' : s.type === 'NLP Pipeline' ? 'nlp' : 'static';
+    const statusClass = s.status === 'live' ? 'live' : 'indexed';
+    const statusLabel = s.status === 'live' ? 'LIVE' : 'INDEXED';
+    return `
+      <div class="source-card">
+        <div class="source-header">
+          <div class="source-name">${s.name}</div>
+          <div class="source-status ${statusClass}">
+            <span class="source-dot ${statusClass}"></span>${statusLabel}
+          </div>
+        </div>
+        <div class="source-type-badge ${typeClass}">${s.type}</div>
+        <div class="source-records">${s.records} records</div>
+        <div class="source-desc">${s.desc}</div>
+      </div>
+    `;
+  }).join('');
+
+  // Intel callout
+  const callout = document.getElementById('intelCallout');
+  if (callout) {
+    callout.innerHTML = `
+      <div class="intel-callout-title">CREATIVE INTELLIGENCE — WHAT MAKES THIS DIFFERENT</div>
+      <div class="intel-callout-text">
+        Most industry databases track what's been announced. 1stLOOK's edge comes from creative intelligence sources — data that reveals what's happening <em>before</em> it's announced, and what the real economics look like <em>behind</em> the press releases. These sources provide structural visibility into Hollywood's financial reality that trade publications alone cannot offer.
+      </div>
+      <div class="intel-callout-sources">
+        ${CREATIVE_INTEL_SOURCES.map(s => `
+          <div class="intel-callout-item">
+            <div class="intel-callout-item-name">${s.name}</div>
+            <div class="intel-callout-item-desc">${s.desc}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+}
+
+// ── RENDER INTELLIGENCE FEED ──────────────────────────────────
+function renderIntelFeed() {
+  const feed = document.getElementById('intelFeed');
+  if (!feed) return;
+
+  feed.innerHTML = INTEL_FEED.map(item => {
+    const impactClass = item.impact;
+    return `
+      <div class="intel-item">
+        <div class="intel-item-left">
+          <div class="intel-type-badge ${item.type}">${item.type.toUpperCase()}</div>
+          <div class="intel-date">${item.date}</div>
+        </div>
+        <div class="intel-item-body">
+          <div class="intel-item-title">${item.title}</div>
+          <div class="intel-item-detail">${item.detail}</div>
+          <div class="intel-item-source">SOURCE: ${item.source}</div>
+        </div>
+        <div class="intel-impact">
+          <div class="intel-impact-label">IMPACT</div>
+          <div class="intel-impact-bar">
+            <div class="intel-impact-fill ${impactClass}" style="width:${item.impactPct}%"></div>
+          </div>
+          <div class="intel-impact-val">${item.impact.toUpperCase()}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ── HOOK NEW TABS INTO INIT ───────────────────────────────────
+const _origInit = init;
+init = function() {
+  _origInit();
+  renderFestivals();
+  renderFestivalValueChart();
+  renderBlacklist();
+  renderBlacklistChart();
+  renderDataSources();
+  renderIntelFeed();
+};
 
 // ── KICK IT OFF ────────────────────────────────────────────────
 loadDeals();

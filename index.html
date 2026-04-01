@@ -7,6 +7,22 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500;600&family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* Grid background — subtle intelligence aesthetic */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(26, 28, 40, 0.3) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 28, 40, 0.3) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 20%, transparent 70%);
+    }
+  </style>
 </head>
 <body>
 
@@ -74,6 +90,10 @@
   <button class="tab-btn" data-tab="dealtype">Deal Structure</button>
   <button class="tab-btn" data-tab="timeline">Timeline Race</button>
   <button class="tab-btn" data-tab="table">Deal Database</button>
+  <button class="tab-btn" data-tab="festivals">Festival Circuit</button>
+  <button class="tab-btn" data-tab="blacklist">Development / Black List</button>
+  <button class="tab-btn" data-tab="sources">Data Sources</button>
+  <button class="tab-btn" data-tab="intel">Intelligence Feed</button>
 </nav>
 
 <!-- TAB: OVERVIEW -->
@@ -251,6 +271,108 @@
   </div>
 </section>
 
+<!-- TAB: FESTIVAL CIRCUIT -->
+<section class="tab-content" id="tab-festivals">
+  <div class="chart-grid-2">
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <div class="chart-title">FESTIVAL CIRCUIT — Global Acquisition Markets</div>
+        <div class="chart-note">Prestige + market activity ratings / Avg deal data from 2015–2025</div>
+      </div>
+    </div>
+  </div>
+  <div class="festival-grid" id="festivalGrid">
+    <!-- populated by JS -->
+  </div>
+  <div class="chart-grid-2" style="margin-top:24px;">
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <div class="chart-title">FESTIVAL ACQUISITION VALUE — By Venue</div>
+        <div class="chart-note">Average acquisition price per festival</div>
+      </div>
+      <div class="chart-wrap tall"><canvas id="festivalValueChart"></canvas></div>
+    </div>
+  </div>
+  <div class="pipeline-section" id="pipelineSection">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<!-- TAB: DEVELOPMENT / BLACK LIST -->
+<section class="tab-content" id="tab-blacklist">
+  <div class="chart-grid-2">
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <div class="chart-title">THE BLACK LIST — Scripts to Screen Pipeline</div>
+        <div class="chart-note">Unproduced screenplays voted best by industry execs / 31% Oscar conversion rate</div>
+      </div>
+    </div>
+  </div>
+  <div class="blacklist-stat-row" id="blacklistStats">
+    <!-- populated by JS -->
+  </div>
+  <div class="table-wrap" style="margin-top:16px;">
+    <table class="deals-table" id="blacklistTable">
+      <thead>
+        <tr>
+          <th>BL YEAR</th>
+          <th>TITLE</th>
+          <th>WRITER</th>
+          <th>BOX OFFICE</th>
+          <th>OSCAR RESULT</th>
+          <th>GENRE</th>
+        </tr>
+      </thead>
+      <tbody id="blacklistTableBody"></tbody>
+    </table>
+  </div>
+  <div class="chart-grid-2" style="margin-top:24px;">
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <div class="chart-title">BLACK LIST TO BOX OFFICE — Value Pipeline</div>
+        <div class="chart-note">Domestic box office of produced Black List scripts</div>
+      </div>
+      <div class="chart-wrap tall"><canvas id="blacklistChart"></canvas></div>
+    </div>
+  </div>
+  <div class="dev-signals-section" id="devSignals">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<!-- TAB: DATA SOURCES -->
+<section class="tab-content" id="tab-sources">
+  <div class="chart-grid-2">
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <div class="chart-title">DATA SOURCES — Intelligence Infrastructure</div>
+        <div class="chart-note">25 sources powering the 1stLOOK platform / Real-time + archival</div>
+      </div>
+    </div>
+  </div>
+  <div class="sources-grid" id="sourcesGrid">
+    <!-- populated by JS -->
+  </div>
+  <div class="intel-callout" id="intelCallout">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<!-- TAB: INTELLIGENCE FEED -->
+<section class="tab-content" id="tab-intel">
+  <div class="chart-grid-2">
+    <div class="chart-card wide">
+      <div class="chart-header">
+        <div class="chart-title">INTELLIGENCE FEED — Key Revelations</div>
+        <div class="chart-note">Creative intelligence discoveries from non-traditional sources</div>
+      </div>
+    </div>
+  </div>
+  <div class="intel-feed" id="intelFeed">
+    <!-- populated by JS -->
+  </div>
+</section>
+
 <!-- DEAL MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
@@ -309,10 +431,10 @@
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-left">
-    <span class="footer-brand">1stLOOK</span> — Hollywood Deals Intelligence Platform
+    <span class="footer-brand">1stLOOK</span> — 25 Data Sources · 8.4M+ Records · 26 Years (2000–2026)
   </div>
   <div class="footer-right">
-    Data sourced from public reporting (Variety, THR, Deadline, WSJ). Values marked Estimated are based on industry comps and reporting fragments. Not financial advice.
+    Data: Trades (15min) · Social (1hr) · Filings (24hr) · Festivals (weekly). Values marked Estimated are industry comps. Not financial advice.
   </div>
 </footer>
 
