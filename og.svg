@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#000" />
+      <stop offset="30%" stop-color="#d4a832" />
+      <stop offset="70%" stop-color="#d4a832" />
+      <stop offset="100%" stop-color="#000" />
+    </linearGradient>
+    <linearGradient id="goldFade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#d4a832" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#000" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#000" />
+
+  <!-- Grid lines -->
+  <g opacity="0.08" stroke="#d4a832" stroke-width="0.5">
+    <line x1="0" y1="60" x2="1200" y2="60" />
+    <line x1="0" y1="120" x2="1200" y2="120" />
+    <line x1="0" y1="180" x2="1200" y2="180" />
+    <line x1="0" y1="240" x2="1200" y2="240" />
+    <line x1="0" y1="300" x2="1200" y2="300" />
+    <line x1="0" y1="360" x2="1200" y2="360" />
+    <line x1="0" y1="420" x2="1200" y2="420" />
+    <line x1="0" y1="480" x2="1200" y2="480" />
+    <line x1="0" y1="540" x2="1200" y2="540" />
+    <line x1="120" y1="0" x2="120" y2="630" />
+    <line x1="240" y1="0" x2="240" y2="630" />
+    <line x1="360" y1="0" x2="360" y2="630" />
+    <line x1="480" y1="0" x2="480" y2="630" />
+    <line x1="600" y1="0" x2="600" y2="630" />
+    <line x1="720" y1="0" x2="720" y2="630" />
+    <line x1="840" y1="0" x2="840" y2="630" />
+    <line x1="960" y1="0" x2="960" y2="630" />
+    <line x1="1080" y1="0" x2="1080" y2="630" />
+  </g>
+
+  <!-- Top gold accent -->
+  <rect x="0" y="0" width="1200" height="2" fill="url(#goldLine)" />
+
+  <!-- Corner accents -->
+  <line x1="60" y1="60" x2="120" y2="60" stroke="#d4a832" stroke-width="1.5" opacity="0.6" />
+  <line x1="60" y1="60" x2="60" y2="120" stroke="#d4a832" stroke-width="1.5" opacity="0.6" />
+  <line x1="1080" y1="60" x2="1140" y2="60" stroke="#d4a832" stroke-width="1.5" opacity="0.6" />
+  <line x1="1140" y1="60" x2="1140" y2="120" stroke="#d4a832" stroke-width="1.5" opacity="0.6" />
+  <line x1="60" y1="510" x2="60" y2="570" stroke="#d4a832" stroke-width="1.5" opacity="0.6" />
+  <line x1="60" y1="570" x2="120" y2="570" stroke="#d4a832" stroke-width="1.5" opacity="0.6" />
+  <line x1="1140" y1="510" x2="1140" y2="570" stroke="#d4a832" stroke-width="1.5" opacity="0.6" />
+  <line x1="1080" y1="570" x2="1140" y2="570" stroke="#d4a832" stroke-width="1.5" opacity="0.6" />
+
+  <!-- Wordmark -->
+  <text x="600" y="240" text-anchor="middle" font-family="'Bebas Neue', Impact, sans-serif" font-size="96" letter-spacing="12" fill="#d8dae8">
+    F<tspan fill="#d4a832">1</tspan>RST<tspan fill="#d4a832">L00</tspan>K
+  </text>
+
+  <!-- Divider -->
+  <rect x="480" y="270" width="240" height="1" fill="url(#goldLine)" opacity="0.5" />
+
+  <!-- Subtitle -->
+  <text x="600" y="310" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="16" letter-spacing="8" fill="#6a6d84">
+    HOLLYWOOD DEALS INTELLIGENCE
+  </text>
+
+  <!-- Stats row -->
+  <text x="260" y="400" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="28" font-weight="600" fill="#d4a832">25</text>
+  <text x="260" y="422" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="3" fill="#6a6d84">DATA SOURCES</text>
+
+  <text x="460" y="400" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="28" font-weight="600" fill="#d4a832">8.4M+</text>
+  <text x="460" y="422" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="3" fill="#6a6d84">RECORDS</text>
+
+  <text x="660" y="400" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="28" font-weight="600" fill="#d4a832">26</text>
+  <text x="660" y="422" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="3" fill="#6a6d84">YEARS TRACKED</text>
+
+  <text x="870" y="400" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="28" font-weight="600" fill="#00e676">LIVE</text>
+  <text x="870" y="422" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="9" letter-spacing="3" fill="#6a6d84">REAL-TIME DATA</text>
+
+  <!-- Separator dots between stats -->
+  <circle cx="360" cy="405" r="2" fill="#d4a832" opacity="0.3" />
+  <circle cx="560" cy="405" r="2" fill="#d4a832" opacity="0.3" />
+  <circle cx="760" cy="405" r="2" fill="#d4a832" opacity="0.3" />
+
+  <!-- Bottom tagline -->
+  <text x="600" y="510" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="11" letter-spacing="4" fill="#363850">
+    THE PRODUCER'S INTELLIGENCE PLATFORM
+  </text>
+
+  <!-- Live pulse dot -->
+  <circle cx="838" cy="395" r="4" fill="#00e676" opacity="0.4" />
+  <circle cx="838" cy="395" r="2.5" fill="#00e676" />
+</svg>

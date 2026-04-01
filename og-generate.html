@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Generate OG Image</title>
+  <style>
+    body { background: #111; color: #fff; font-family: monospace; padding: 40px; }
+    canvas { display: block; margin: 20px 0; border: 1px solid #333; }
+    button { background: #d4a832; color: #000; border: none; padding: 12px 24px; font-family: monospace; font-size: 14px; cursor: pointer; font-weight: 700; letter-spacing: 2px; }
+    button:hover { background: #f0c040; }
+    p { color: #666; font-size: 12px; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <h2>F1RSTL00K — OG Image Generator</h2>
+  <p>Click the button to download og.png (1200x630). Place it in the root of your site.</p>
+  <canvas id="c" width="1200" height="630"></canvas>
+  <button onclick="download()">DOWNLOAD og.png</button>
+
+  <script>
+    const c = document.getElementById('c');
+    const ctx = c.getContext('2d');
+
+    // Background
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, 1200, 630);
+
+    // Grid
+    ctx.strokeStyle = 'rgba(212, 168, 50, 0.06)';
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x <= 1200; x += 60) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 630); ctx.stroke();
+    }
+    for (let y = 0; y <= 630; y += 60) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1200, y); ctx.stroke();
+    }
+
+    // Top gold line
+    const grd = ctx.createLinearGradient(0, 0, 1200, 0);
+    grd.addColorStop(0, '#000');
+    grd.addColorStop(0.3, '#d4a832');
+    grd.addColorStop(0.7, '#d4a832');
+    grd.addColorStop(1, '#000');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, 1200, 2);
+
+    // Corner accents
+    ctx.strokeStyle = '#d4a832';
+    ctx.lineWidth = 1.5;
+    ctx.globalAlpha = 0.5;
+    // Top-left
+    ctx.beginPath(); ctx.moveTo(60, 60); ctx.lineTo(120, 60); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(60, 60); ctx.lineTo(60, 120); ctx.stroke();
+    // Top-right
+    ctx.beginPath(); ctx.moveTo(1080, 60); ctx.lineTo(1140, 60); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(1140, 60); ctx.lineTo(1140, 120); ctx.stroke();
+    // Bottom-left
+    ctx.beginPath(); ctx.moveTo(60, 570); ctx.lineTo(120, 570); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(60, 510); ctx.lineTo(60, 570); ctx.stroke();
+    // Bottom-right
+    ctx.beginPath(); ctx.moveTo(1080, 570); ctx.lineTo(1140, 570); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(1140, 510); ctx.lineTo(1140, 570); ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Wordmark
+    ctx.font = '96px "Bebas Neue", Impact, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.letterSpacing = '12px';
+
+    // Measure and draw letter by letter for gold accents
+    const word = [
+      { ch: 'F', color: '#d8dae8' },
+      { ch: '1', color: '#d4a832' },
+      { ch: 'R', color: '#d8dae8' },
+      { ch: 'S', color: '#d8dae8' },
+      { ch: 'T', color: '#d8dae8' },
+      { ch: 'L', color: '#d4a832' },
+      { ch: '0', color: '#d4a832' },
+      { ch: '0', color: '#d4a832' },
+      { ch: 'K', color: '#d8dae8' },
+    ];
+
+    // Calculate total width
+    ctx.font = '96px Impact, sans-serif';
+    let totalW = 0;
+    const spacing = 14;
+    const widths = word.map(w => {
+      const m = ctx.measureText(w.ch).width;
+      totalW += m + spacing;
+      return m;
+    });
+    totalW -= spacing;
+
+    let cx = 600 - totalW / 2;
+    word.forEach((w, i) => {
+      ctx.fillStyle = w.color;
+      ctx.textAlign = 'left';
+      ctx.fillText(w.ch, cx, 240);
+      cx += widths[i] + spacing;
+    });
+
+    // Divider
+    const dGrd = ctx.createLinearGradient(480, 0, 720, 0);
+    dGrd.addColorStop(0, 'rgba(212,168,50,0)');
+    dGrd.addColorStop(0.3, 'rgba(212,168,50,0.5)');
+    dGrd.addColorStop(0.7, 'rgba(212,168,50,0.5)');
+    dGrd.addColorStop(1, 'rgba(212,168,50,0)');
+    ctx.fillStyle = dGrd;
+    ctx.fillRect(480, 268, 240, 1);
+
+    // Subtitle
+    ctx.font = '600 15px "Courier New", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#6a6d84';
+    ctx.letterSpacing = '8px';
+    ctx.fillText('HOLLYWOOD  DEALS  INTELLIGENCE', 600, 308);
+
+    // Stats
+    const stats = [
+      { val: '25', label: 'DATA SOURCES', x: 260, color: '#d4a832' },
+      { val: '8.4M+', label: 'RECORDS', x: 460, color: '#d4a832' },
+      { val: '26', label: 'YEARS TRACKED', x: 660, color: '#d4a832' },
+      { val: 'LIVE', label: 'REAL-TIME DATA', x: 870, color: '#00e676' },
+    ];
+
+    stats.forEach(s => {
+      ctx.font = '600 30px "Courier New", monospace';
+      ctx.fillStyle = s.color;
+      ctx.textAlign = 'center';
+      ctx.fillText(s.val, s.x, 400);
+
+      ctx.font = '9px "Courier New", monospace';
+      ctx.fillStyle = '#6a6d84';
+      ctx.fillText(s.label, s.x, 422);
+    });
+
+    // Dots between stats
+    ctx.fillStyle = 'rgba(212,168,50,0.3)';
+    [360, 560, 760].forEach(x => {
+      ctx.beginPath(); ctx.arc(x, 402, 2, 0, Math.PI * 2); ctx.fill();
+    });
+
+    // Green pulse dot
+    ctx.fillStyle = 'rgba(0, 230, 118, 0.3)';
+    ctx.beginPath(); ctx.arc(832, 392, 5, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#00e676';
+    ctx.beginPath(); ctx.arc(832, 392, 3, 0, Math.PI * 2); ctx.fill();
+
+    // Bottom tagline
+    ctx.font = '10px "Courier New", monospace';
+    ctx.fillStyle = '#363850';
+    ctx.textAlign = 'center';
+    ctx.fillText('THE  PRODUCER\'S  INTELLIGENCE  PLATFORM', 600, 510);
+
+    function download() {
+      const a = document.createElement('a');
+      a.download = 'og.png';
+      a.href = c.toDataURL('image/png');
+      a.click();
+    }
+  </script>
+</body>
+</html>
