@@ -9,19 +9,39 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
 </head>
 <body>
+  <!-- Animated particle background -->
+  <canvas id="particleCanvas"></canvas>
+
   <header>
     <div class="header-inner">
-      <h1><span class="logo">1st</span>LOOK</h1>
-      <p class="tagline">Hollywood Deals Tracker — Live data on first-look, overall &amp; exclusive deals</p>
+      <div>
+        <h1><span class="logo">1st</span>LOOK</h1>
+        <p class="tagline">Hollywood Deals Tracker</p>
+      </div>
+      <div class="header-stats">
+        <div class="header-stat">
+          <div class="header-stat-value" id="headerDeals">—</div>
+          <div class="header-stat-label">Deals Tracked</div>
+        </div>
+        <div class="header-stat">
+          <div class="header-stat-value" id="headerValue">—</div>
+          <div class="header-stat-label">Known Value</div>
+        </div>
+      </div>
     </div>
   </header>
+
+  <!-- Scrolling deal ticker -->
+  <div class="ticker-wrap">
+    <div class="ticker" id="ticker"></div>
+  </div>
 
   <main>
     <!-- KPI Cards -->
     <section class="kpi-bar" id="kpiBar">
       <div class="kpi-card">
         <span class="kpi-value" id="kpiTotal">—</span>
-        <span class="kpi-label">Total Deals Tracked</span>
+        <span class="kpi-label">Total Deals</span>
       </div>
       <div class="kpi-card">
         <span class="kpi-value" id="kpiActive">—</span>
@@ -34,6 +54,28 @@
       <div class="kpi-card">
         <span class="kpi-value" id="kpiStudios">—</span>
         <span class="kpi-label">Studios / Buyers</span>
+      </div>
+    </section>
+
+    <!-- Network Graph -->
+    <section class="network-section">
+      <div class="section-title">Studio–Talent Network</div>
+      <div class="network-card">
+        <canvas id="networkCanvas"></canvas>
+        <div class="network-legend" id="networkLegend"></div>
+      </div>
+    </section>
+
+    <!-- Racing Bar Chart -->
+    <section class="race-section">
+      <div class="section-title">The Deal Race — Studios Over Time</div>
+      <div class="race-card">
+        <div class="race-controls">
+          <div class="race-year" id="raceYear">2014</div>
+          <button class="race-btn" id="racePlayBtn">Play</button>
+          <button class="race-btn" id="raceResetBtn">Reset</button>
+        </div>
+        <div id="raceContainer"></div>
       </div>
     </section>
 
@@ -101,7 +143,7 @@
       </div>
     </section>
 
-    <!-- Timeline Scatter -->
+    <!-- Bubble -->
     <section class="chart-card chart-full">
       <h2>Deal Landscape — Value &amp; Timeline</h2>
       <p class="chart-subtitle">Bubble size = estimated deal value (where known). Click a bubble for details.</p>
