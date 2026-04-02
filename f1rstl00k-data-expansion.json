@@ -1,0 +1,404 @@
+{
+  "_README": "F1RSTL00K DATA EXPANSION PLAN — Gold Standard Records + Pipeline Architecture",
+  "_CURRENT_STATE": "Site is live at f1rstl00k.com with deals intelligence, festival circuit, Black List, studio spend. Needs: deeper per-project records, smaller deals, production company tracking, Fringe-to-screen pipeline, and bulk data ingestion.",
+
+  "GOLD_STANDARD_RECORDS": [
+    {
+      "id": "br-001",
+      "title": "Baby Reindeer",
+      "type": "Limited Series",
+      "year": 2024,
+      "status": "Released",
+      "logline": "A struggling comedian's act of kindness to a vulnerable woman sparks a suffocating obsession that threatens to wreck both their lives.",
+
+      "key_people": {
+        "creator_writer_star": "Richard Gadd",
+        "directors": ["Weronika Tofilska", "Josephine Bornebusch"],
+        "cast": ["Richard Gadd", "Jessica Gunning", "Nava Mau", "Tom Goodman-Hill"],
+        "producers": ["Richard Gadd", "Petra Fried", "Ed Macdonald", "Matt Jarvis", "Wim De Greef"],
+        "exec_producers": ["Richard Gadd", "Petra Fried", "Ed Macdonald", "Matt Jarvis", "Wim De Greef"],
+        "production_company": "Clerkenwell Films",
+        "distributor": "Netflix",
+        "talent_agency": null,
+        "talent_management": null,
+        "talent_legal": null
+      },
+
+      "origin_story": {
+        "source_material": "Autobiographical one-man show",
+        "source_material_type": "Edinburgh Fringe play",
+        "original_medium": "Live theater / solo performance",
+        "pipeline": "Edinburgh Fringe → TV adaptation",
+        "comparable_pipelines": ["Fleabag (Waller-Bridge, Fringe 2013 → BBC/Amazon 2016)", "What We Do in the Shadows (Short film 2005 → Feature 2014 → FX Series 2019)"]
+      },
+
+      "development_timeline": [
+        {"date": "2014", "event": "Richard Gadd performs 'Cheese and Crack Whores' at Edinburgh Fringe — begins building reputation on circuit"},
+        {"date": "2015", "event": "Gadd performs 'Waiting for Gaddott' at Edinburgh Fringe"},
+        {"date": "2016", "event": "Gadd's 'Monkey See Monkey Do' debuts at Edinburgh Fringe — autobiographical show about sexual abuse. Transfers to sold-out Soho Theatre run. Broadcast on Comedy Central UK."},
+        {"date": "2019-08", "event": "Gadd performs 'Baby Reindeer' as one-man show at Edinburgh Fringe — wins Edinburgh Comedy Award for Best Show"},
+        {"date": "2019-Q4", "event": "Clerkenwell Films options the show for TV adaptation"},
+        {"date": "2020-12", "event": "Netflix announces series order — Gadd to write and star. Clerkenwell Films producing."},
+        {"date": "2022-08", "event": "Weronika Tofilska attached as director"},
+        {"date": "2023-03", "event": "Josephine Bornebusch announced as additional director"},
+        {"date": "2024-04-11", "event": "All 7 episodes release simultaneously on Netflix"},
+        {"date": "2024-04-W2", "event": "Climbs to #1 on Netflix Global Top 10 — 52.8M viewing hours in one week"},
+        {"date": "2024-05-09", "event": "Fiona Muir-Harvey claims to be inspiration for Martha on Piers Morgan Uncensored"},
+        {"date": "2024-06-06", "event": "Muir-Harvey files $170M defamation lawsuit against Netflix"},
+        {"date": "2024-07", "event": "88.4M views in first 91 days — enters Netflix Top 10 most popular series of all time"},
+        {"date": "2024-09-15", "event": "Wins 6 Primetime Emmy Awards including Outstanding Limited Series, Lead Actor, Supporting Actress, Writing"},
+        {"date": "2024-09-17", "event": "Richard Gadd signs multi-year first-look deal with Netflix — announced by Ted Sarandos at RTS London Convention"},
+        {"date": "2024-09-17", "event": "HBO also reportedly pursued Gadd for first-look deal — Netflix won. Gadd already has BBC/HBO series 'Lions' in development."}
+      ],
+
+      "financials": {
+        "budget": "Undisclosed (estimated £6-10M for 7 episodes based on UK drama comps)",
+        "budget_confidence": "Estimated",
+        "revenue_model": "Netflix original — no theatrical. Value measured in viewership + subscriber retention.",
+        "viewership": {
+          "week_1": "10.4M hours",
+          "week_2": "52.8M hours (#1 globally)",
+          "week_3": "87.4M hours",
+          "week_4": "73.6M hours",
+          "first_91_days": "88.4M views",
+          "top_10_countries": 92,
+          "weeks_in_top_10": 8
+        },
+        "subsequent_deal_value": "Multi-year first-look deal (value undisclosed, comparable deals range $10-50M)"
+      },
+
+      "awards": [
+        {"ceremony": "Edinburgh Comedy Award", "year": 2019, "category": "Best Show", "result": "Won"},
+        {"ceremony": "Primetime Emmy", "year": 2024, "category": "Outstanding Limited or Anthology Series", "result": "Won"},
+        {"ceremony": "Primetime Emmy", "year": 2024, "category": "Outstanding Lead Actor", "result": "Won (Gadd)"},
+        {"ceremony": "Primetime Emmy", "year": 2024, "category": "Outstanding Supporting Actress", "result": "Won (Gunning)"},
+        {"ceremony": "Primetime Emmy", "year": 2024, "category": "Outstanding Writing", "result": "Won (Gadd)"},
+        {"ceremony": "Primetime Emmy", "year": 2024, "category": "Outstanding Casting", "result": "Won"},
+        {"ceremony": "Primetime Emmy", "year": 2024, "category": "Outstanding Picture Editing", "result": "Won"},
+        {"ceremony": "Golden Globe", "year": 2025, "category": "Best Limited Series", "result": "Won"},
+        {"ceremony": "Golden Globe", "year": 2025, "category": "Best Supporting Actress", "result": "Won (Gunning)"}
+      ],
+
+      "legal_proceedings": [
+        {"case": "Fiona Harvey v. Netflix Inc.", "filed": "2024-06-06", "jurisdiction": "US Federal Court", "amount": "$170M", "status": "Trial date set 2025", "type": "Defamation", "source": "PACER"}
+      ],
+
+      "related_deals": [
+        {"person": "Richard Gadd", "company": "Netflix", "deal_type": "First Look", "duration": "Multi-year", "value": "Undisclosed", "date": "2024-09-17"},
+        {"person": "Richard Gadd", "company": "BBC / HBO", "deal_type": "Series Order", "project": "Lions", "date": "2024-06"}
+      ],
+
+      "production_company_profile": {
+        "name": "Clerkenwell Films",
+        "founded": 2008,
+        "hq": "London, UK",
+        "key_personnel": ["Petra Fried", "Ed Macdonald", "Matt Jarvis"],
+        "notable_credits": ["The End of the F***ing World (Channel 4/Netflix, 2017-2019)", "Baby Reindeer (Netflix, 2024)"],
+        "deals": "UK-based indie production company — typically co-produces with UK broadcasters and Netflix"
+      },
+
+      "tags": ["Edinburgh Fringe Origin", "Netflix Phenomenon", "One-Man Show Adaptation", "Streamer Original", "First-Look Deal", "Defamation Lawsuit", "UK Production", "Autobiographical"],
+      "data_sources": ["trades", "imdb", "tmdb", "pacer", "podcasts", "reddit", "twitter"],
+      "fact_check_status": "Verified — all data from trade publications (Deadline, THR, Variety, The Wrap) and Netflix official announcements"
+    },
+
+    {
+      "id": "fb-001",
+      "title": "Fleabag",
+      "type": "Series (2 seasons)",
+      "year": 2016,
+      "status": "Completed",
+      "logline": "A dry-witted, sexually voracious young woman navigates life in London while breaking the fourth wall to guide the audience through her days.",
+
+      "key_people": {
+        "creator_writer_star": "Phoebe Waller-Bridge",
+        "directors": ["Harry Bradbeer", "Tim Kirkby"],
+        "cast": ["Phoebe Waller-Bridge", "Sian Clifford", "Olivia Colman", "Andrew Scott", "Brett Gelman"],
+        "producers": ["Lydia Hampson"],
+        "exec_producers": ["Phoebe Waller-Bridge", "Harry Bradbeer", "Jenny Robins"],
+        "production_company": "Two Brothers Pictures",
+        "distributor_uk": "BBC Three / BBC One",
+        "distributor_us": "Amazon Prime Video",
+        "talent_agency": "United Agents (UK), CAA (US)"
+      },
+
+      "origin_story": {
+        "source_material": "One-woman play performed at Edinburgh Festival Fringe 2013",
+        "source_material_type": "Edinburgh Fringe play",
+        "original_medium": "10-minute sketch for London Storytelling Festival (Nov 2012) → expanded to full one-woman show",
+        "pipeline": "Storytelling night sketch → Edinburgh Fringe → Soho Theatre transfer → BBC Three commission → Amazon co-production → Global phenomenon",
+        "comparable_pipelines": ["Baby Reindeer (Gadd, Fringe 2019 → Netflix 2024)", "SIX: The Musical (Fringe 2017 → West End/Broadway)"],
+        "kickstarter_funded": true,
+        "fringe_venue": "Underbelly Cowgate, 60-seat room, late-night slot",
+        "fringe_budget": "Kickstarter campaign — covered set, design, stage managers, marketing, transport London→Edinburgh, accommodations for 8 people in 2-bed flat"
+      },
+
+      "development_timeline": [
+        {"date": "2012-11-25", "event": "Waller-Bridge performs 10-minute Fleabag sketch at London Storytelling Festival, Leicester Square Theatre — born from a dare by a friend"},
+        {"date": "2013-01", "event": "Waller-Bridge and director Vicky Jones begin expanding sketch into full one-woman show. Script written in 2.5 weeks. Waller-Bridge finished writing on the train to Edinburgh."},
+        {"date": "2013-08", "event": "Fleabag premieres at Edinburgh Fringe, Underbelly Cowgate. 60-seat venue, late-night slot. Wins Fringe First Award."},
+        {"date": "2013-Q4", "event": "Transfers to sold-out run at Soho Theatre, London"},
+        {"date": "2014-2015", "event": "Touring — London, Australia, South Korea"},
+        {"date": "2016-01", "event": "BBC Three commissions TV adaptation. Two Brothers Pictures to produce."},
+        {"date": "2016-07-21", "event": "Season 1 premieres on BBC Three (digital). Amazon Prime Video picks up for US release (Sep 2016)."},
+        {"date": "2016", "event": "Waller-Bridge also creates Channel 4 comedy 'Crashing' and begins developing 'Killing Eve' — all in same year"},
+        {"date": "2019-03-04", "event": "Season 2 premieres on BBC One (upgraded from BBC Three). Andrew Scott joins cast."},
+        {"date": "2019-09", "event": "Wins 6 Primetime Emmys — first British show to win Best Comedy Series. Waller-Bridge wins Writing, Acting, Producing."},
+        {"date": "2019-09", "event": "Stage show returns for National Theatre / West End run. NT Live cinema broadcast."},
+        {"date": "2020-01", "event": "Waller-Bridge forms Wells Street Films production company"},
+        {"date": "2020-04", "event": "NT Live recording streams free during COVID lockdown — Fleabag for Charity donates proceeds to frontline workers"},
+        {"date": "2021", "event": "Waller-Bridge co-writes James Bond: No Time to Die screenplay"},
+        {"date": "2023", "event": "Stars in Indiana Jones and the Dial of Destiny. Fleabag for Charity donates £50K to Edinburgh Fringe artists."}
+      ],
+
+      "financials": {
+        "fringe_budget": "~£5,000 (Kickstarter)",
+        "series_budget_per_episode": "Undisclosed (estimated £500K-800K per ep S1, £1-2M per ep S2 based on BBC Three/BBC One drama comps)",
+        "amazon_deal": "Co-production deal with BBC — Amazon secured US streaming rights",
+        "subsequent_career_value": "Waller-Bridge became one of Hollywood's most in-demand writer/performers: Bond screenplay, Indiana Jones, Star Wars voice role, Mr & Mrs Smith development"
+      },
+
+      "awards": [
+        {"ceremony": "Edinburgh Fringe First Award", "year": 2013, "result": "Won"},
+        {"ceremony": "BAFTA TV", "year": 2017, "category": "Best Female Comedy Performance", "result": "Won"},
+        {"ceremony": "Primetime Emmy", "year": 2019, "category": "Outstanding Comedy Series", "result": "Won (first British show)"},
+        {"ceremony": "Primetime Emmy", "year": 2019, "category": "Outstanding Lead Actress in Comedy", "result": "Won"},
+        {"ceremony": "Primetime Emmy", "year": 2019, "category": "Outstanding Writing for Comedy", "result": "Won"},
+        {"ceremony": "Primetime Emmy", "year": 2019, "category": "Outstanding Directing for Comedy", "result": "Won (Bradbeer)"},
+        {"ceremony": "Golden Globe", "year": 2020, "category": "Best Television Series — Musical or Comedy", "result": "Won"},
+        {"ceremony": "Golden Globe", "year": 2020, "category": "Best Actress — Musical or Comedy", "result": "Won"}
+      ],
+
+      "production_company_profile": {
+        "name": "Two Brothers Pictures",
+        "founded": 2012,
+        "founders": ["Harry Williams", "Jack Williams"],
+        "hq": "London, UK",
+        "parent": "All3Media",
+        "notable_credits": ["Fleabag", "The Missing (BBC/Starz)", "Liar (ITV)", "Baptiste (BBC)", "The Tourist (BBC/HBO Max)"]
+      },
+
+      "tags": ["Edinburgh Fringe Origin", "Kickstarter Funded", "One-Woman Show Adaptation", "BBC/Amazon Co-Production", "Emmy Historic", "Career Launchpad", "Fourth Wall Breaking"],
+      "data_sources": ["trades", "imdb", "tmdb", "edinburgh_fringe", "podcasts", "bbc_commissioning"],
+      "fact_check_status": "Verified"
+    }
+  ],
+
+  "DATA_EXPANSION_PHASES": {
+
+    "PHASE_1_BULK_FOUNDATION": {
+      "description": "Download IMDb public dataset — instant backbone of 150K+ titles",
+      "source": "https://datasets.imdbws.com/",
+      "files": [
+        "title.basics.tsv.gz — all titles (filter to movies/TV 2000-2026 = ~150-200K records)",
+        "title.crew.tsv.gz — directors and writers for every title",
+        "title.principals.tsv.gz — principal cast/crew with billing order",
+        "title.ratings.tsv.gz — IMDb ratings and vote counts",
+        "name.basics.tsv.gz — 9.6M people with birth year, known-for titles, primary profession"
+      ],
+      "output": "data/imdb-core.json — filtered, cleaned, indexed",
+      "license": "Non-commercial use allowed per IMDb terms",
+      "estimated_time": "2-3 hours to download, parse, and filter",
+      "records_expected": "150,000-200,000 titles"
+    },
+
+    "PHASE_2_TMDB_ENRICHMENT": {
+      "description": "Add budget, revenue, production companies, keywords via TMDb API",
+      "source": "https://developer.themoviedb.org (free API key)",
+      "daily_id_export": "https://files.tmdb.org/p/exports/movie_ids_MM_DD_YYYY.json.gz",
+      "rate_limit": "40 requests per 10 seconds = ~14,400/hour",
+      "fields_added": ["budget", "revenue", "production_companies", "keywords", "taglines", "spoken_languages", "release_dates_by_country", "poster_path", "backdrop_path"],
+      "priority_order": "All films with IMDb votes > 100 first (~50K), then expand",
+      "output": "data/tmdb-enriched.json",
+      "estimated_time": "~10 hours for top 50K films at rate limit",
+      "records_expected": "50,000-100,000 enriched records"
+    },
+
+    "PHASE_3_PRODUCTION_COMPANY_INTEL": {
+      "description": "Build company profiles from TMDb production_companies field",
+      "logic": "For every unique production company in TMDb data, aggregate: total films, avg budget, total worldwide gross, key talent relationships, genre distribution, active years, deal history from trades data",
+      "example_companies": [
+        "Clerkenwell Films — Baby Reindeer, End of the F***ing World",
+        "A24 — Moonlight, EEAAO, Lady Bird, Uncut Gems (track every acquisition)",
+        "Blumhouse Productions — Get Out, Paranormal Activity, The Purge (micro-budget model)",
+        "Plan B Entertainment — Moonlight, 12 Years a Slave, The Big Short",
+        "Wells Street Films — Phoebe Waller-Bridge's company",
+        "Monkeypaw Productions — Jordan Peele's company",
+        "Gloria Sanchez Productions — Will Ferrell/Adam McKay",
+        "Duplass Brothers Productions — indie micro-budget model",
+        "NEON — distributor tracking (Parasite, Anatomy of a Fall, The Substance)",
+        "Two Brothers Pictures — Fleabag, The Missing"
+      ],
+      "output": "data/companies.json",
+      "estimated_companies": "5,000-10,000 unique production companies"
+    },
+
+    "PHASE_4_FESTIVAL_DEEP_DIVE": {
+      "description": "Comprehensive festival acquisitions database 2000-2026",
+      "scrape_sources": [
+        "IndieWire — annual 'Sundance Movies Sold So Far' articles (2014-2026)",
+        "Screen Daily — festival acquisition coverage for all major fests",
+        "Deadline/Variety/THR — deal reports with prices when disclosed",
+        "Festival official sites — selection archives"
+      ],
+      "festivals_covered": [
+        "Sundance (most acquisitions data available)",
+        "Cannes (Marché du Film + Official Selection)",
+        "TIFF (People's Choice tracking → Oscar predictor)",
+        "Venice (Golden Lion → Oscar pipeline)",
+        "Berlin (EFM market + competition)",
+        "SXSW (Midnighters + Narrative)",
+        "Tribeca, Telluride, NYFF, Locarno, San Sebastian, Rotterdam, Karlovy Vary",
+        "Specialty: Fantastic Fest, Sitges, Annecy, Clermont-Ferrand (shorts)"
+      ],
+      "fields_per_entry": ["film_title", "festival", "year", "section", "world_premiere", "buyer", "price", "rights_territory", "eventual_domestic_gross", "eventual_worldwide_gross", "oscar_result"],
+      "output": "data/festival-acquisitions.json",
+      "estimated_records": "3,000-5,000 documented acquisitions"
+    },
+
+    "PHASE_5_FRINGE_TO_SCREEN_PIPELINE": {
+      "description": "Track projects that originated as theater/fringe/live performance and became film or TV",
+      "known_examples": [
+        {"origin": "Edinburgh Fringe 2013", "show": "Fleabag", "creator": "Phoebe Waller-Bridge", "screen": "BBC/Amazon series 2016-2019", "result": "6 Emmys, Bond screenplay, Indiana Jones"},
+        {"origin": "Edinburgh Fringe 2019", "show": "Baby Reindeer", "creator": "Richard Gadd", "screen": "Netflix limited series 2024", "result": "6 Emmys, Netflix first-look deal"},
+        {"origin": "Edinburgh Fringe 2017", "show": "SIX", "creators": "Toby Marlow, Lucy Moss", "screen": "West End → Broadway musical", "result": "Tony nominations"},
+        {"origin": "Wellington 2005 short film", "show": "What We Do in the Shadows", "creators": "Taika Waititi, Jemaine Clement", "screen": "Feature 2014 → FX series 2019", "result": "Franchise"},
+        {"origin": "Fringe 2002", "show": "Flight of the Conchords", "creators": "Bret McKenzie, Jemaine Clement", "screen": "HBO series 2007-2009", "result": "Emmy-nominated"},
+        {"origin": "Fringe 2004", "show": "Tim Minchin's Matilda", "creator": "Tim Minchin", "screen": "West End → Broadway → Netflix film 2022", "result": "Musical phenomenon"},
+        {"origin": "Off-Broadway 2015", "show": "Slave Play", "creator": "Jeremy O. Harris", "screen": "Film adaptation in development", "result": "Most Tony-nominated play ever"},
+        {"origin": "Fringe 2014", "show": "Hir", "creator": "Taylor Mac", "screen": "Not yet adapted", "result": "Major US regional theater productions"},
+        {"origin": "London stage 2017", "show": "The Inheritance", "creator": "Matthew Lopez", "screen": "Film adaptation announced", "result": "Tony for Best Play"}
+      ],
+      "data_sources_for_expansion": [
+        "Edinburgh Fringe programme archives (2000-2026 — ~75,000 shows)",
+        "Fringe First Award winners (annual since 1973)",
+        "Edinburgh Comedy Awards (Best Show, Best Newcomer)",
+        "Soho Theatre programming (common transfer destination)",
+        "National Theatre commissions",
+        "Off-Broadway production databases"
+      ],
+      "output": "data/fringe-pipeline.json"
+    },
+
+    "PHASE_6_DEALS_DEEP": {
+      "description": "Expand from major first-look/overall deals to ALL trackable deals",
+      "deal_types_to_add": [
+        "First-look deals (current focus — expand volume)",
+        "Overall deals (talent locked to studio/streamer)",
+        "Pod deals (production company workspace on studio lot)",
+        "Housekeeping deals (smaller overhead + first-look)",
+        "Blind script deals (studio buys writer's next unwritten project)",
+        "Spec script sales (writer sells completed screenplay)",
+        "Life rights acquisitions (studio buys rights to true story)",
+        "Book/IP option purchases (studio options novel/article/podcast for adaptation)",
+        "International co-production deals (treaty-based financing)",
+        "Output deals (mini-major committed to deliver X films to distributor)",
+        "Negative pickup deals (studio agrees to distribute independently produced film)",
+        "Gap/mezzanine financing (bridge loans against pre-sales)",
+        "Tax incentive deals (production moves to state/country for rebate)"
+      ],
+      "sources_for_smaller_deals": [
+        "Deadline 'Deal of the Day' / daily deal reports",
+        "Variety 'Film News' / 'TV News' sections",
+        "THR 'Heat Vision' (genre/franchise deals)",
+        "Tracking Board (spec script sales tracker)",
+        "The Black List website (hosted scripts + industry ratings)",
+        "Production Weekly (subscription — comprehensive production tracking)",
+        "Backstage / Breakdown Services (casting calls reveal deals in motion)",
+        "Cinando (Cannes market platform — international sales data)",
+        "The Film Catalogue / AFM catalogue (market-level sales)",
+        "SEC filings (for public companies — deal-level disclosure in footnotes)",
+        "UK Companies House (British production company financials are public)",
+        "Australian Screen (government-funded production database)",
+        "Telefilm Canada (Canadian co-production data)"
+      ],
+      "output": "Expand existing data/deals.json",
+      "target": "From hundreds of deals to 10,000+"
+    },
+
+    "PHASE_7_NLP_TRADE_PIPELINE": {
+      "description": "Automated entity extraction from trade article RSS feeds",
+      "feeds": [
+        "https://deadline.com/feed/",
+        "https://variety.com/feed/",
+        "https://www.hollywoodreporter.com/feed/",
+        "https://www.screendaily.com/rss",
+        "https://www.indiewire.com/feed/"
+      ],
+      "entities_to_extract": [
+        "Person names + role (director, writer, actor, producer, exec)",
+        "Company names (studio, prodco, distributor, agency, streamer)",
+        "Project titles",
+        "Deal terms (dollar amounts, duration, deal type)",
+        "Festival names + sections",
+        "Dates (greenlight, start of production, wrap, release)"
+      ],
+      "tools": "Node.js RSS parser + basic NLP (compromise.js or similar) — no Python dependency needed for vanilla JS project",
+      "output": "data/trade-intel.json — running feed of extracted deal mentions",
+      "refresh": "Every 15 minutes (matches current site footer claim)"
+    }
+  },
+
+  "ADDITIONAL_CREATIVE_DATA_SOURCES": [
+    {
+      "source": "UK Companies House",
+      "url": "https://find-and-update.company-information.service.gov.uk/",
+      "why": "British production companies (Clerkenwell Films, Two Brothers Pictures, Working Title, etc.) must file annual accounts publicly. You can see their actual revenue, profit/loss, and balance sheets. Free API available.",
+      "records": "Thousands of UK film/TV production companies"
+    },
+    {
+      "source": "Australian Screen (Screen Australia)",
+      "url": "https://www.screenaustralia.gov.au/fact-finders",
+      "why": "Full database of every Australian film/TV production with budgets, financing sources, box office, festival history. Government transparency = deep financial data.",
+      "records": "10,000+ productions"
+    },
+    {
+      "source": "BFI Statistical Yearbook (UK)",
+      "url": "https://www.bfi.org.uk/industry-data-insights",
+      "why": "Granular UK film industry data: production spend by budget tier, admissions, distributor market share, cultural test results. Published annually with downloadable datasets.",
+      "records": "20+ years of industry statistics"
+    },
+    {
+      "source": "European Audiovisual Observatory LUMIERE database",
+      "url": "https://lumiere.obs.coe.int/",
+      "why": "Admissions data for every film released in every European country since 1996. Free, searchable, downloadable. Covers 37 countries.",
+      "records": "500,000+ film-country release records"
+    },
+    {
+      "source": "Production Weekly",
+      "url": "https://www.productionweekly.com/",
+      "why": "Subscription service ($75/month) that tracks every film and TV project in active development/production. Includes: project name, production company, cast, director, writer, shooting location, start date. The industry's actual tracking service.",
+      "records": "~2,000 new listings per week"
+    },
+    {
+      "source": "Cinando (Cannes Marché du Film)",
+      "url": "https://cinando.com/",
+      "why": "International film market platform. Company profiles, project listings, screening schedules. Requires accreditation but data is referenceable from market reports.",
+      "records": "30,000+ company profiles, 10,000+ projects annually"
+    },
+    {
+      "source": "Netflix Engagement Reports",
+      "url": "https://about.netflix.com/en/news/what-we-watched-a-netflix-engagement-report",
+      "why": "Netflix now publishes biannual viewing data for every title on the platform. Viewing hours by title. Can cross-reference with our project records.",
+      "records": "18,000+ titles per report"
+    },
+    {
+      "source": "Letterboxd API / Community Data",
+      "url": "https://letterboxd.com/",
+      "why": "Audience sentiment and discovery platform. Film ratings, reviews, and most critically — list activity shows which films are gaining cultural momentum before box office reflects it.",
+      "records": "Millions of ratings across 800K+ films"
+    },
+    {
+      "source": "The Numbers (detailed financial data)",
+      "url": "https://www.the-numbers.com/",
+      "why": "More granular than Box Office Mojo: includes home video revenue, VOD estimates, international breakdown by territory, production budgets, talent compensation (where known). Some data behind paywall but significant amounts are free.",
+      "records": "Full financial profiles for ~25,000 films"
+    },
+    {
+      "source": "Internet Archive Wayback Machine",
+      "url": "https://web.archive.org/",
+      "why": "Historical snapshots of studio websites, production company pages, festival programs that have since been taken down. Can recover deleted press releases, cast announcements, and deal terms.",
+      "records": "Billions of archived pages — searchable by domain and date"
+    }
+  ]
+}
