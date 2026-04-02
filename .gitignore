@@ -1,0 +1,5 @@
+# IMDb raw downloads
+.imdb-temp/
+
+# Full dataset (too large for git — regenerate with scripts/phase1-imdb-core.js)
+data/imdb-core.json
